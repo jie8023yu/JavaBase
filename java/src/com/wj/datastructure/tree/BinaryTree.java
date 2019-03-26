@@ -1,5 +1,6 @@
 package com.wj.datastructure.tree;
 
+import com.wj.datastructure.stack.LinkedStack;
 import com.wj.datastructure.stack.StackInterface;
 
 import java.util.Iterator;
@@ -131,6 +132,22 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>{
         }
     }
 
+    public void iterativeInorderTraverse() {
+        StackInterface<BinaryNode<T>> nodeStack = new LinkedStack<>();
+        BinaryNode<T> currentNode = root;
+        while (!nodeStack.isEmpty() || null != currentNode) {
+            while (null != currentNode) {
+                currentNode = currentNode.getLeftChild();
+            }
+            if (!nodeStack.isEmpty()) {
+                BinaryNode<T> nextNode = nodeStack.pop();
+                assert  nextNode != null;
+                System.out.println(nextNode.getData());
+                currentNode = nextNode.getRightChild();
+            }
+        }
+    }
+
 
 
     private class InorderIterator<T> implements Iterator<T>{
@@ -140,6 +157,8 @@ public class BinaryTree<T> implements BinaryTreeInterface<T>{
 
 
         public InorderIterator() {
+            nodeStack = new LinkedStack<>();
+            currentNode = (BinaryNode<T>) root;
         }
 
         @Override
