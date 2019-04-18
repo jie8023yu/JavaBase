@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a564f16-0fba-455c-bfab-2621ecc1ab3d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/com/wj/concurrent/test/UnsafeLazyInitialization.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaBase.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBase.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/com/wj/jdk8/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/com/wj/jdk8/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo5.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,31 +24,53 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo4.java">
+        <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/UnsafeLazyInitialization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+            <state relative-caret-position="523">
+              <caret line="116" column="42" selection-start-line="116" selection-start-column="42" selection-end-line="116" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2534#2535#0" expanded="true" />
+                <element signature="e#2633#2634#0" expanded="true" />
+                <element signature="method#test1#0;class#UnsafeLazyInitialization#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo5.java">
+        <entry file="file://$PROJECT_DIR$/src/com/test/Demo01.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="313">
+              <caret line="32" column="56" lean-forward="true" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#127#128#0" expanded="true" />
+                <element signature="e#174#175#0" expanded="true" />
+                <element signature="e#253#254#0" expanded="true" />
+                <element signature="e#296#297#0" expanded="true" />
+                <element signature="e#228#229#0" expanded="true" />
+                <element signature="e#266#267#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/Employee.java">
+        <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+            <state relative-caret-position="152">
+              <caret line="8" column="28" lean-forward="true" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/jre/lib/rt.jar!/com/sun/corba/se/impl/orbutil/closure/Constant.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#413#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,6 +91,7 @@
       <find>BinaryNode&lt;T&gt; currentNode2 = BinaryTree.this.root;</find>
       <find>remove</find>
       <find>set</find>
+      <find>as</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,6 +129,18 @@
         <option value="$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo4.java" />
         <option value="$PROJECT_DIR$/src/com/com/wj/jdk8/Employee.java" />
         <option value="$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo5.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/jdk8/OptionalDemo.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/test/Demo01.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/test/ConnectionPool.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/test/Demo02.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/mayi/Demo01.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/mayi/Test01.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/mayi/Demo02.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/test/ThreadState.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/test/MultiThread.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/concurrent/test/UnsafeLazyInitialization.java" />
+        <option value="$PROJECT_DIR$/src/com/test/Demo01.java" />
+        <option value="$PROJECT_DIR$/src/com/test/Test.java" />
       </list>
     </option>
   </component>
@@ -116,9 +153,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="555" />
-    <option name="width" value="751" />
-    <option name="height" value="698" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -126,8 +164,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -151,12 +187,14 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="jdk8" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -166,14 +204,14 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553777211319" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555578290377" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -192,94 +230,92 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LambdaDemo5.test2">
-    <configuration name="LambdaDemo2.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Test">
+    <configuration name="Demo01" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.Demo01" />
       <module name="JavaBase" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.com.wj.jdk8.*" />
+          <option name="PATTERN" value="com.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.com.wj.jdk8" />
-      <option name="MAIN_CLASS_NAME" value="com.com.wj.jdk8.LambdaDemo2" />
-      <option name="METHOD_NAME" value="test3" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LambdaDemo2.test4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.Test" />
       <module name="JavaBase" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.com.wj.jdk8.*" />
+          <option name="PATTERN" value="com.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.com.wj.jdk8" />
-      <option name="MAIN_CLASS_NAME" value="com.com.wj.jdk8.LambdaDemo2" />
-      <option name="METHOD_NAME" value="test4" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LambdaDemo3.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnsafeLazyInitialization" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.com.wj.concurrent.test.UnsafeLazyInitialization" />
       <module name="JavaBase" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.com.wj.jdk8.*" />
+          <option name="PATTERN" value="com.com.wj.concurrent.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.com.wj.jdk8" />
-      <option name="MAIN_CLASS_NAME" value="com.com.wj.jdk8.LambdaDemo3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UnsafeLazyInitialization.test1 (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaBase" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.com.wj.concurrent.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.com.wj.concurrent.test" />
+      <option name="MAIN_CLASS_NAME" value="com.com.wj.concurrent.test.UnsafeLazyInitialization" />
       <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LambdaDemo3.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UnsafeLazyInitialization.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaBase" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.com.wj.jdk8.*" />
+          <option name="PATTERN" value="com.com.wj.concurrent.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.com.wj.jdk8" />
-      <option name="MAIN_CLASS_NAME" value="com.com.wj.jdk8.LambdaDemo3" />
-      <option name="METHOD_NAME" value="test2" />
+      <option name="PACKAGE_NAME" value="com.com.wj.concurrent.test" />
+      <option name="MAIN_CLASS_NAME" value="com.com.wj.concurrent.test.UnsafeLazyInitialization" />
+      <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LambdaDemo5.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaBase" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.com.wj.jdk8.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.com.wj.jdk8" />
-      <option name="MAIN_CLASS_NAME" value="com.com.wj.jdk8.LambdaDemo5" />
-      <option name="METHOD_NAME" value="test2" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.Demo01" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.UnsafeLazyInitialization" />
+      <item itemvalue="JUnit.UnsafeLazyInitialization.test1" />
+      <item itemvalue="JUnit.UnsafeLazyInitialization.test1 (1)" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LambdaDemo5.test2" />
-        <item itemvalue="JUnit.LambdaDemo3.test2" />
-        <item itemvalue="JUnit.LambdaDemo3.test1" />
-        <item itemvalue="JUnit.LambdaDemo2.test4" />
-        <item itemvalue="JUnit.LambdaDemo2.test3" />
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Demo01" />
+        <item itemvalue="Application.UnsafeLazyInitialization" />
+        <item itemvalue="JUnit.UnsafeLazyInitialization.test1" />
+        <item itemvalue="JUnit.UnsafeLazyInitialization.test1 (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -298,44 +334,53 @@
       <workItem from="1553655189464" duration="12069000" />
       <workItem from="1553680278359" duration="997000" />
       <workItem from="1553735177807" duration="41000" />
-      <workItem from="1553759390282" duration="11934000" />
+      <workItem from="1553759390282" duration="12389000" />
+      <workItem from="1553839739410" duration="3630000" />
+      <workItem from="1553844068853" duration="9000" />
+      <workItem from="1554693770225" duration="10718000" />
+      <workItem from="1554774163754" duration="4450000" />
+      <workItem from="1554790658671" duration="594000" />
+      <workItem from="1555397355777" duration="727000" />
+      <workItem from="1555402369140" duration="3784000" />
+      <workItem from="1555471818811" duration="5431000" />
+      <workItem from="1555554463318" duration="4921000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="LambdaDemo2_test1 - 2019.03.28 at 19h 41m 57s.xml">
-      <configuration name="LambdaDemo2.test1" configurationId="JUnit" />
+    <history-entry file="LambdaDemo5_test - 2019.03.29 at 14h 50m 30s.xml">
+      <configuration name="LambdaDemo5.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo2_test2 - 2019.03.28 at 19h 44m 36s.xml">
-      <configuration name="LambdaDemo2.test2" configurationId="JUnit" />
+    <history-entry file="LambdaDemo5_test - 2019.03.29 at 14h 53m 04s.xml">
+      <configuration name="LambdaDemo5.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo2_test2 - 2019.03.28 at 19h 46m 54s.xml">
-      <configuration name="LambdaDemo2.test2" configurationId="JUnit" />
+    <history-entry file="LambdaDemo5_test6 - 2019.03.29 at 14h 55m 37s.xml">
+      <configuration name="LambdaDemo5.test6" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo2_test3 - 2019.03.28 at 19h 49m 55s.xml">
-      <configuration name="LambdaDemo2.test3" configurationId="JUnit" />
+    <history-entry file="LambdaDemo5_test6 - 2019.03.29 at 14h 56m 12s.xml">
+      <configuration name="LambdaDemo5.test6" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo2_test4 - 2019.03.28 at 19h 51m 42s.xml">
-      <configuration name="LambdaDemo2.test4" configurationId="JUnit" />
+    <history-entry file="UnsafeLazyInitialization_test1 - 2019.04.17 at 14h 40m 37s.xml">
+      <configuration name="UnsafeLazyInitialization.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo3_test1 - 2019.03.28 at 20h 12m 46s.xml">
-      <configuration name="LambdaDemo3.test1" configurationId="JUnit" />
+    <history-entry file="UnsafeLazyInitialization_test1 - 2019.04.17 at 14h 42m 31s.xml">
+      <configuration name="UnsafeLazyInitialization.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo3_test2 - 2019.03.28 at 20h 16m 50s.xml">
-      <configuration name="LambdaDemo3.test2" configurationId="JUnit" />
+    <history-entry file="UnsafeLazyInitialization_test1_(1) - 2019.04.17 at 14h 42m 39s.xml">
+      <configuration name="UnsafeLazyInitialization.test1 (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo5_test2 - 2019.03.28 at 20h 28m 43s.xml">
-      <configuration name="LambdaDemo5.test2" configurationId="JUnit" />
+    <history-entry file="UnsafeLazyInitialization_test1 - 2019.04.17 at 14h 43m 35s.xml">
+      <configuration name="UnsafeLazyInitialization.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo5_test2 - 2019.03.28 at 20h 43m 44s.xml">
-      <configuration name="LambdaDemo5.test2" configurationId="JUnit" />
+    <history-entry file="UnsafeLazyInitialization_test1 - 2019.04.17 at 14h 44m 08s.xml">
+      <configuration name="UnsafeLazyInitialization.test1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LambdaDemo5_test2 - 2019.03.28 at 20h 44m 18s.xml">
-      <configuration name="LambdaDemo5.test2" configurationId="JUnit" />
+    <history-entry file="UnsafeLazyInitialization_test1 - 2019.04.17 at 14h 44m 49s.xml">
+      <configuration name="UnsafeLazyInitialization.test1" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47787000" />
+    <option name="totallyTimeSpent" value="82506000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -350,17 +395,17 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49344262" weight="0.24130106" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49016392" weight="0.22617246" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.5065574" side_tool="true" weight="0.28744328" />
+      <window_info id="Favorites" order="6" sideWeight="0.5098361" side_tool="true" weight="0.22617246" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35409835" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" visible="true" weight="0.5147541" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3786885" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.47213113" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3295082" />
@@ -381,17 +426,17 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49344262" visible="true" weight="0.24130106" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49016392" weight="0.22617246" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.5065574" side_tool="true" weight="0.28744328" />
+      <window_info id="Favorites" order="6" sideWeight="0.5098361" side_tool="true" weight="0.22617246" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.35409835" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.5147541" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3786885" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.47213113" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3295082" />
@@ -448,6 +493,36 @@
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/Demo01.java</url>
+          <line>47</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/Thread.java</url>
+          <line>1251</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/concurrent/locks/AbstractQueuedSynchronizer.java</url>
+          <line>868</line>
+          <properties />
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/UnsafeLazyInitialization.java</url>
+          <line>110</line>
+          <properties />
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/UnsafeLazyInitialization.java</url>
+          <line>10</line>
+          <properties />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo2.java</url>
           <line>28</line>
@@ -468,74 +543,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/TreeIteratorInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/EmptyTreeException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/Test.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/TreeInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/BinaryNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="919">
-          <caret line="89" column="33" selection-start-line="89" selection-start-column="33" selection-end-line="89" selection-end-column="33" />
-          <folding>
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#231#232#0" expanded="true" />
-            <element signature="e#261#262#0" expanded="true" />
-            <element signature="e#280#281#0" expanded="true" />
-            <element signature="e#540#541#0" expanded="true" />
-            <element signature="e#567#568#0" expanded="true" />
-            <element signature="e#602#603#0" expanded="true" />
-            <element signature="e#634#635#0" expanded="true" />
-            <element signature="e#677#678#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-            <element signature="e#808#809#0" expanded="true" />
-            <element signature="e#852#853#0" expanded="true" />
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-            <element signature="e#988#989#0" expanded="true" />
-            <element signature="e#1035#1036#0" expanded="true" />
-            <element signature="e#1069#1070#0" expanded="true" />
-            <element signature="e#1116#1117#0" expanded="true" />
-            <element signature="e#1157#1158#0" expanded="true" />
-            <element signature="e#1192#1193#0" expanded="true" />
-            <element signature="e#1239#1240#0" expanded="true" />
-            <element signature="e#1651#1652#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/stack/StackInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/stack/Demo01.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="18" column="42" selection-start-line="15" selection-start-column="6" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/BinaryTreeInterface.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -604,17 +611,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/BinarySearchTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="162" column="26" selection-start-line="162" selection-start-column="26" selection-end-line="162" selection-end-column="26" />
-          <folding>
-            <element signature="e#669#670#0" expanded="true" />
-            <element signature="e#715#716#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/TreeMap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="35340">
@@ -657,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/java8.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/MyPredicate.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -696,34 +685,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#423#424#0" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/Collections.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="79" column="13" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="108" column="47" lean-forward="true" selection-start-line="105" selection-start-column="8" selection-end-line="108" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2726#2727#0" expanded="true" />
-            <element signature="e#2787#2788#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -739,6 +704,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wj/datastructure/tree/BinarySearchTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="60" column="14" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="14" />
+          <folding>
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo4.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -746,19 +722,271 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/Employee.java">
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo5.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        <state relative-caret-position="1501">
+          <caret line="83" column="48" selection-start-line="83" selection-start-column="48" selection-end-line="83" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo5.java">
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/java8.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="19">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/function/BiFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/function/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/Employee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+          <folding>
+            <element signature="e#184#185#0" expanded="true" />
+            <element signature="e#214#215#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/OptionalDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wj01/object/oop/TestInnerClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/Demo01.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="28" column="116" selection-start-line="28" selection-start-column="116" selection-end-line="28" selection-end-column="116" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/Demo02.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="36" column="23" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wj01/object/oop/TestStaticInnerClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/ConnectionPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="319" lean-forward="true" selection-start-line="319" selection-end-line="319" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#405:8731" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="38" column="69" selection-start-line="38" selection-start-column="69" selection-end-line="38" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/mayi/Test01.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/mayi/Demo01.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jdk8/LambdaDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1292">
+          <caret line="29" column="65" lean-forward="true" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wj04/collection/MyArrayList01.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/mayi/Demo02.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wj01/object/oop/TestArrayCopy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/concurrent/TimeUnit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1064">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/wj01/object/oop/TestArrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/jre/lib/rt.jar!/java/util/concurrent/locks/ReentrantLock.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-57">
+          <folding>
+            <element signature="e#0#7101#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/MultiThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/concurrent/locks/AbstractQueuedSynchronizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15409">
+          <caret line="856" column="18" selection-start-line="856" selection-start-column="18" selection-end-line="856" selection-end-column="18" />
+          <folding>
+            <element signature="e#32644#32645#0" expanded="true" />
+            <element signature="e#32694#32695#0" expanded="true" />
+            <element signature="e#41392#41393#0" expanded="true" />
+            <element signature="e#41449#41450#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/ThreadState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/concurrent/locks/ReentrantLock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3154">
+          <caret line="208" column="23" selection-start-line="208" selection-start-column="16" selection-end-line="208" selection-end-column="23" />
+          <folding>
+            <element signature="e#6849#6850#0" expanded="true" />
+            <element signature="e#6907#6908#0" expanded="true" />
+            <element signature="e#9117#9118#0" expanded="true" />
+            <element signature="e#9144#9145#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="1255" column="42" selection-start-line="1255" selection-start-column="42" selection-end-line="1255" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/concurrent/test/UnsafeLazyInitialization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="116" column="42" selection-start-line="116" selection-start-column="42" selection-end-line="116" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2534#2535#0" expanded="true" />
+            <element signature="e#2633#2634#0" expanded="true" />
+            <element signature="method#test1#0;class#UnsafeLazyInitialization#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/jre/lib/rt.jar!/com/sun/corba/se/impl/orbutil/closure/Constant.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#413#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="28" lean-forward="true" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/Demo01.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="32" column="56" lean-forward="true" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
+          <folding>
+            <element signature="e#127#128#0" expanded="true" />
+            <element signature="e#174#175#0" expanded="true" />
+            <element signature="e#253#254#0" expanded="true" />
+            <element signature="e#296#297#0" expanded="true" />
+            <element signature="e#228#229#0" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
           </folding>
         </state>
       </provider>
