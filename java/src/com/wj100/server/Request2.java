@@ -2,6 +2,7 @@ package com.wj100.server;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.*;
 
@@ -70,6 +71,7 @@ public class Request2 {
         System.out.println(url);
         System.out.println(queryString);
         //转层Map
+        convertMap();
     }
 
     /**
@@ -84,12 +86,29 @@ public class Request2 {
             //获取key和value
             String key = kv[0];
             String value = kv[1];
+//            String value = kv[1] == null ? null : decode(kv[1],"utf-8");
             if (parameterMap.containsKey(key)) {
                 parameterMap.get(key).add(value);
             } else {
-                parameterMap.put(key,new ArrayList<>());
+                List<String> list = new ArrayList<>();
+                list.add(value);
+                parameterMap.put(key,list);
             }
         }
+    }
+
+    /**
+     * 处理中文
+     * @return
+     */
+    private String decode(String value,String enc) {
+        try {
+            return java.net.URLDecoder.decode(value,enc);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**
