@@ -17,4 +17,12 @@
         <servlet-name>reg</servlet-name>
         <url-pattern>/reg</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>others</servlet-name>
+        <servlet-class>com.wj100.server.servlet.OtherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>others</servlet-name>
+        <url-pattern>/others</url-pattern>
+    </servlet-mapping>
 </web-app>

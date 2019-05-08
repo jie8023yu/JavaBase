@@ -92,8 +92,8 @@ public class Response {
         }
         //2.响应头（最后一行存在空行）
         headInfo.append("Date:").append(new Date()).append(CRLF);
-        headInfo.append("Server:").append("my server/1.0.1;charset=utf-8").append(CRLF);
-        headInfo.append("Content-Type:text/html").append(CRLF);
+        headInfo.append("Server:").append("my server/1.0.1").append(CRLF);
+        headInfo.append("Content-Type:text/html;charset=utf-8").append(CRLF);
         headInfo.append("Content-length:").append(len).append(CRLF);
         headInfo.append(CRLF);
     }

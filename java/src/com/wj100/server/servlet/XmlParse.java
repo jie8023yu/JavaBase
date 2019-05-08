@@ -32,7 +32,7 @@ public class XmlParse {
         Class cls = Class.forName(className);
         Servlet servlet = (Servlet) cls.getConstructor().newInstance();
         System.out.println(servlet);
-        servlet.service();
+//        servlet.service();
     }
 }
 

@@ -48,7 +48,7 @@ public class Request2 {
         this.method = this.requestInfo.substring(0,this.requestInfo.indexOf("/")).toLowerCase();
         int index1 = this.requestInfo.indexOf("/") + 1;
         int index2 = this.requestInfo.indexOf("HTTP/");
-        this.url = this.requestInfo.substring(index1,index2);
+        this.url = this.requestInfo.substring(index1,index2).trim();
         int queryIndex = this.url.indexOf("?");
         if (queryIndex > 0) {
             //表示存在请求参数
@@ -79,20 +79,29 @@ public class Request2 {
      */
     private void convertMap() {
         //分割字符串
-        String[] keyValues = this.queryString.split("&");
-        for (String queryStr : keyValues) {
-            String[] kv = queryStr.split("=");
-            kv = Arrays.copyOf(kv,2);
-            //获取key和value
-            String key = kv[0];
-            String value = kv[1];
-//            String value = kv[1] == null ? null : decode(kv[1],"utf-8");
-            if (parameterMap.containsKey(key)) {
+        if (null != queryString) {
+            String[] keyValues = this.queryString.split("&");
+            for (String queryStr : keyValues) {
+                String[] kv = queryStr.split("=");
+                kv = Arrays.copyOf(kv,2);
+                //获取key和value
+                String key = kv[0];
+//            String value = kv[1];
+                String value = kv[1] == null ? null : decode(kv[1],"utf-8");
+
+                if (!parameterMap.containsKey(key)) {
+                    parameterMap.put(key,new ArrayList<String>());
+                }
+
+                parameterMap.get(key).add(value);
+
+           /* if (parameterMap.containsKey(key)) {
                 parameterMap.get(key).add(value);
             } else {
                 List<String> list = new ArrayList<>();
                 list.add(value);
                 parameterMap.put(key,list);
+            }*/
             }
         }
     }
