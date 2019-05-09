@@ -9,9 +9,11 @@ public class Client {
         handler.setFactory(aFactory);
         ToolsFactory tf1 = (ToolsFactory) handler.getProxyInstance();
         tf1.saleManTools("123");
-
         handler.setFactory(bFactory);
         tf1.saleManTools("123");
+
+        ProxyUtils.generateClassFile(aFactory.getClass(),tf1.getClass().getSimpleName());
+
 
     }
 }
