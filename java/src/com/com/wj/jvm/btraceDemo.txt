@@ -1,0 +1,24 @@
+/* BTrace Script Template */
+import com.sun.btrace.annotations.*;
+import static com.sun.btrace.BTraceUtils.*;
+
+@BTrace
+public class TracingScript {
+	/* put your code here */
+    @OnMethod(
+        clazz="com.com.wj.jvm.BTraceTest",
+        method="add",
+        location=@Location(Kind.RETURN)
+    )
+
+    /*这样写最后一个打印的参数无法及时响应出来，第二场调用时第一次调用的最后一个参数才被打印出来*/
+    public static void func(@Self com.com.wj.jvm.BTraceTest instance,int a,int b,@Return int result,@Duration long duration){
+     println("调用堆栈：");
+     jstack();
+      println(strcat("方法参数A:",str(a)));
+      println(strcat("方法参数B:",str(b)));
+      println(strcat("返回结果:",str(result)));
+      println("耗时为：" + duration);
+    }
+
+}
