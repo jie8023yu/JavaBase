@@ -8,8 +8,8 @@ public class MultiThread {
 
     public static void main(String[] args) throws Exception{
 
-        Thread.sleep(1000);
-        new Thread().join();
+//        Thread.sleep(1000);
+//        new Thread().join();
         ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
         ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(false, false);
         for (ThreadInfo threadInfo : threadInfos) {
