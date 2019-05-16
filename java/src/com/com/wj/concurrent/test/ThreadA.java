@@ -1,6 +1,9 @@
 package com.com.wj.concurrent.test;
 
-
+/**
+ * 说明：如果加锁的对象是一个Thread，调用了该线程对象的wait方法，即使没有notify通知，如果该线程执行完毕后（也就是线程没有存活了 isAlive()），
+ * wait方法将不会再阻塞，会执行完毕。原因，没找到，目前已知的就这一个特殊。
+ */
 public class ThreadA
 {
 
