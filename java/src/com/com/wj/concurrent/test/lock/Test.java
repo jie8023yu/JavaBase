@@ -11,7 +11,7 @@ public class Test {
                 mutex.lock();
                 System.out.println(Thread.currentThread().getName() + " 获取锁成功");
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
@@ -23,16 +23,19 @@ public class Test {
         }).start();
 
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
-        new Thread(new Runnable() {
+        Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName() + " run");
                 mutex.lock();
                 System.out.println(Thread.currentThread().getName() + " 获取锁成功");
             }
-        }).start();
+        });
+        t1.start();
+        Thread.sleep(1000);
+        t1.interrupt();
         System.out.println("main");
     }
 }

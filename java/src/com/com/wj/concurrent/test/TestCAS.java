@@ -1,6 +1,5 @@
 package com.com.wj.concurrent.test;
 
-import com.com.wj.concurrent.test.threadpool.ThreadPool;
 
 import java.util.ArrayList;
 import java.util.List;

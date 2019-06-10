@@ -28,18 +28,18 @@ public class TestSamaphore {
 
     private static LinkedList<Connection> pool = new LinkedList<>();
     static {
-        for (int i = 0; i < POOL_SIZE; i++) pool.addLast();
+        for (int i = 0; i < POOL_SIZE; i++) pool.addLast(null);
     }
 
 
     public void test() {
-        Proxy.newProxyInstance(TestSamaphore.class.getClassLoader(), Connection.class.getInterfaces(), new InvocationHandler() {
+        /*Proxy.newProxyInstance(TestSamaphore.class.getClassLoader(), Connection.class.getInterfaces(), new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 return method.invoke(new Connection() {
                 }, args);
             }
-        });
+        });*/
     }
 
 }
