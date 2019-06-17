@@ -1,0 +1,59 @@
+package com.wj.socket.bio;
+
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Date;
+
+public class Server {
+
+    private static boolean isStart = true;
+
+    public static void main(String[] args) {
+
+        //入口类
+        try {
+            ServerSocket serverSocket = new ServerSocket();
+            serverSocket.bind(new InetSocketAddress("127.0.0.1",18888));
+            // 等待用户连入  accept方法阻塞当前线程
+            while (isStart) {
+                Socket socket = serverSocket.accept();
+                new Thread(new ServerTask(socket)).start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class ServerTask implements Runnable{
+
+        private Socket socket;
+
+        public ServerTask(Socket socket) {
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                OutputStream outputStream = socket.getOutputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String line = bufferedReader.readLine();
+                System.out.println(line);
+                String responseStr = "BAD REQUEST";
+                if ("getTime".equals(line)) {
+                    responseStr = new Date().toString();
+                }
+
+                PrintWriter writer = new PrintWriter(outputStream);
+//                writer.println(responseStr);
+                writer.write(responseStr);
+                writer.write("\r\n");
+                writer.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

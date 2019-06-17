@@ -5,9 +5,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TestConcurrentHashMap {
 
     public static void main(String[] args) {
-        ConcurrentHashMap map = new ConcurrentHashMap();
-        map.put("key1","value1");
-        map.get("key1");
-        System.out.println(map.size());
+        ConcurrentHashMap<String,String> map = new ConcurrentHashMap();
+        for (int i = 0; i < 100; i++) {
+            map.put("key" + i,"value" + i);
+        }
+        System.out.println(1);
     }
 }
