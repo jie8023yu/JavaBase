@@ -35,6 +35,10 @@ public class Client implements Runnable{
             SocketAddress socketAddress = new InetSocketAddress("localhost",8888);
             if (socketChannel.connect(socketAddress));
             else socketChannel.register(selector, SelectionKey.OP_READ);
+            while (!socketChannel.finishConnect()) {
+                ;
+            }
+            System.out.println("连接成功");
             while (true) {
                 selector.select(1000);
                 Set<SelectionKey> keys = selector.selectedKeys();
