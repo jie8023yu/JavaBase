@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a564f16-0fba-455c-bfab-2621ecc1ab3d" name="Default Changelist" comment="NIO BIO AIO">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/wj100/server/Server01.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/wj100/server/Server01.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/StackAllocate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/StackAllocate.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,11 +37,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/StackAllocate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
+            <state relative-caret-position="475">
+              <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/OOM.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,7 +86,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/wj/mybatis/MappedStatement.java" />
         <option value="$PROJECT_DIR$/src/com/wj/mybatis/说明" />
         <option value="$PROJECT_DIR$/src/com/wj/mybatis/config/Configuration.java" />
         <option value="$PROJECT_DIR$/src/com/wj/mybatis/db.properties" />
@@ -126,6 +136,7 @@
         <option value="$PROJECT_DIR$/src/com/wj100/server/Server01.java" />
         <option value="$PROJECT_DIR$/src/com/Demo01.java" />
         <option value="$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/StackAllocate.java" />
+        <option value="$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/OOM.java" />
       </list>
     </option>
   </component>
@@ -191,6 +202,16 @@
               <item name="wj" type="462c0819:PsiDirectoryNode" />
               <item name="jvm" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="java" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="wj" type="462c0819:PsiDirectoryNode" />
+              <item name="jvm" type="462c0819:PsiDirectoryNode" />
+              <item name="jvm01" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -207,7 +228,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568972240447" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1568973796137" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="C:/develop/bw/jprofiler11/bin/jprofiler.exe" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -249,7 +270,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StackAllocate">
+  <component name="RunManager" selected="Application.OOM">
     <configuration name="AioClient (2)" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.wj.socket.aio.client.AioClient" />
       <module name="JavaBase" />
@@ -289,12 +310,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server01 (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.wj100.server.Server01" />
+    <configuration name="OOM" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.com.wj.jvm.jvm01.OOM" />
       <module name="JavaBase" />
+      <option name="VM_PARAMETERS" value="-Xms5m -Xmx5m -XX:+PrintGC" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.wj100.server.*" />
+          <option name="PATTERN" value="com.com.wj.jvm.jvm01.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -302,8 +324,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server02" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.wj100.server.Server02" />
+    <configuration name="Server01 (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.wj100.server.Server01" />
       <module name="JavaBase" />
       <extension name="coverage">
         <pattern>
@@ -345,19 +367,19 @@
     <list>
       <item itemvalue="Application.AioClient (2)" />
       <item itemvalue="Application.Client02 (1)" />
-      <item itemvalue="Application.Server02" />
       <item itemvalue="Application.Server06" />
       <item itemvalue="Application.Server01 (1)" />
       <item itemvalue="Application.Demo01" />
       <item itemvalue="Application.StackAllocate" />
+      <item itemvalue="Application.OOM" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.OOM" />
         <item itemvalue="Application.StackAllocate" />
         <item itemvalue="Application.Demo01" />
         <item itemvalue="Application.Server01 (1)" />
         <item itemvalue="Application.Server06" />
-        <item itemvalue="Application.Server02" />
       </list>
     </recent_temporary>
   </component>
@@ -423,7 +445,7 @@
       <workItem from="1564562606037" duration="1718000" />
       <workItem from="1564741210286" duration="3120000" />
       <workItem from="1565059986967" duration="727000" />
-      <workItem from="1568971606302" duration="1122000" />
+      <workItem from="1568971606302" duration="2072000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1556198572793</created>
@@ -538,7 +560,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="298563000" />
+    <option name="totallyTimeSpent" value="299513000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -553,7 +575,7 @@
     <frame x="-2567" y="-7" width="2062" height="1126" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47354499" weight="0.2734531" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47354499" visible="true" weight="0.2734531" />
       <window_info id="Structure" order="1" sideWeight="0.52645504" side_tool="true" weight="0.22919819" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -562,7 +584,7 @@
       <window_info id="Favorites" order="6" sideWeight="0.52131146" side_tool="true" weight="0.2655068" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.37731957" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.37731957" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.4748491" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -854,13 +876,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/jre/lib/rt.jar!/sun/nio/ch/AsynchronousSocketChannelImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="282" selection-start-line="282" selection-end-line="282" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/nio/DirectByteBuffer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -1272,8 +1287,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/StackAllocate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
+        <state relative-caret-position="475">
+          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/com/wj/jvm/jvm01/OOM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

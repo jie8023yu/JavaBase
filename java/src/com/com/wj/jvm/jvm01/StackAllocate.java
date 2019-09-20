@@ -25,7 +25,7 @@ package com.com.wj.jvm.jvm01;
  *          事先在堆里面为每个线程申请私有内存，每个线程只去自己分配好的Buffer里面取申请线程，可以降低不同线程竞争带来的性能影响。
  *          分配这个buffer的操作要保证原子性和安全性。
  *
- *          
+ *
  *
  */
 public class StackAllocate {
