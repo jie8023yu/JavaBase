@@ -32,6 +32,7 @@ public class Server01 {
     public void receive() {
         try {
             Socket client = serverSocket.accept();
+            Thread.sleep(1000);
             System.out.println("一个客户端建立了连接");
             //获取请求协议
             InputStream inputStream = client.getInputStream();
@@ -39,7 +40,7 @@ public class Server01 {
             int len = inputStream.read(datas);
             String requestInfo = new String(datas,0,len);
             System.out.println(requestInfo);
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             System.out.println("客户端错误");
         }
