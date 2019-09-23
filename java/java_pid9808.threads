@@ -1,0 +1,112 @@
+Thread 0xffdddee0
+  at java.net.SocketInputStream.socketRead0(Ljava/io/FileDescriptor;[BIII)I (Native Method)
+  at java.net.SocketInputStream.socketRead(Ljava/io/FileDescriptor;[BIII)I (SocketInputStream.java:116)
+  at java.net.SocketInputStream.read([BIII)I (SocketInputStream.java:171)
+  at java.net.SocketInputStream.read([BII)I (SocketInputStream.java:141)
+  at sun.nio.cs.StreamDecoder.readBytes()I (StreamDecoder.java:284)
+  at sun.nio.cs.StreamDecoder.implRead([CII)I (StreamDecoder.java:326)
+  at sun.nio.cs.StreamDecoder.read([CII)I (StreamDecoder.java:178)
+  at java.io.InputStreamReader.read([CII)I (InputStreamReader.java:184)
+  at java.io.BufferedReader.fill()V (BufferedReader.java:161)
+  at java.io.BufferedReader.readLine(Z)Ljava/lang/String; (BufferedReader.java:324)
+  at java.io.BufferedReader.readLine()Ljava/lang/String; (BufferedReader.java:389)
+  at com.intellij.rt.execution.application.AppMainV2$1.run()V (AppMainV2.java:64)
+
+  locals:
+    objectId=0xffdde060, line=1
+    objectId=0xffdde090, line=1
+    objectId=0xffdde0b8, line=1
+    objectId=0xffdde060, line=2
+    objectId=0xffdde0b8, line=2
+    objectId=0xffdde090, line=2
+    objectId=0xffdde060, line=3
+    objectId=0xffdde0b8, line=3
+    objectId=0xffde00c8, line=4
+    objectId=0xffde00c8, line=5
+    objectId=0xffde00f8, line=5
+    objectId=0xffde4108, line=5
+    objectId=0xffa0f1f0, line=5
+    objectId=0xffde00c8, line=6
+    objectId=0xffde00f8, line=6
+    objectId=0xffde4138, line=6
+    objectId=0xffde4138, line=7
+    objectId=0xffde00f8, line=7
+    objectId=0xffde4150, line=8
+    objectId=0xffde4150, line=9
+    objectId=0xffde4138, line=9
+    objectId=0xffde4150, line=10
+    objectId=0xffdddee0, line=11
+    objectId=0xffde4180, line=11
+    objectId=0xffde4150, line=11
+
+Thread 0xffde4678
+  at java.lang.OutOfMemoryError.<init>()V (OutOfMemoryError.java:48)
+  at sun.util.calendar.ZoneInfoFile.<clinit>()V (ZoneInfoFile.java:251)
+  at sun.util.calendar.ZoneInfo.getTimeZone(Ljava/lang/String;)Ljava/util/TimeZone; (ZoneInfo.java:589)
+  at java.util.TimeZone.getTimeZone(Ljava/lang/String;Z)Ljava/util/TimeZone; (TimeZone.java:560)
+  at java.util.TimeZone.setDefaultZone()Ljava/util/TimeZone; (TimeZone.java:666)
+  at java.util.TimeZone.getDefaultRef()Ljava/util/TimeZone; (TimeZone.java:636)
+  at java.util.Date.normalize()Lsun/util/calendar/BaseCalendar$Date; (Date.java:1197)
+  at java.util.Date.toString()Ljava/lang/String; (Date.java:1030)
+  at java.util.Properties.store0(Ljava/io/BufferedWriter;Ljava/lang/String;Z)V (Properties.java:829)
+  at java.util.Properties.store(Ljava/io/OutputStream;Ljava/lang/String;)V (Properties.java:818)
+  at sun.misc.VMSupport.serializePropertiesToByteArray(Ljava/util/Properties;)[B (VMSupport.java:70)
+  at sun.misc.VMSupport.serializeAgentPropertiesToByteArray()[B (VMSupport.java:79)
+
+  locals:
+    objectId=0xffa41098, line=1
+    objectId=0xffdfada8, line=2
+    objectId=0xffdfada8, line=3
+    objectId=0xffdfada8, line=4
+    objectId=0xffdf81e0, line=6
+    objectId=0xffdf71d8, line=6
+    objectId=0xffdf81e0, line=7
+    objectId=0xffdee9b0, line=8
+    objectId=0xffdeec10, line=8
+    objectId=0xffdee9b0, line=9
+    objectId=0xffded988, line=9
+    objectId=0xffded468, line=10
+    objectId=0xffded988, line=10
+    objectId=0xffdee9b0, line=10
+    objectId=0xffdeeb68, line=10
+    objectId=0xffdeeb80, line=10
+
+Thread 0xffde4870
+
+  locals:
+
+Thread 0xffc7dc38
+  at java.lang.Object.wait(J)V (Native Method)
+  at java.lang.ref.ReferenceQueue.remove(J)Ljava/lang/ref/Reference; (ReferenceQueue.java:144)
+  at java.lang.ref.ReferenceQueue.remove()Ljava/lang/ref/Reference; (ReferenceQueue.java:165)
+  at java.lang.ref.Finalizer$FinalizerThread.run()V (Finalizer.java:216)
+
+  locals:
+    objectId=0xffc7ddc8, line=1
+    objectId=0xffc7ddb8, line=1
+    objectId=0xffc7ddc8, line=2
+    objectId=0xffc7dc38, line=3
+    objectId=0xffc7dde8, line=3
+
+Thread 0xffc7ddf8
+  at java.lang.Object.wait(J)V (Native Method)
+  at java.lang.Object.wait()V (Object.java:502)
+  at java.lang.ref.Reference.tryHandlePending(Z)Z (Reference.java:191)
+  at java.lang.ref.Reference$ReferenceHandler.run()V (Reference.java:153)
+
+  locals:
+    objectId=0xffc7df70, line=1
+    objectId=0xffc7df70, line=2
+    objectId=0xffc7ddf8, line=3
+
+Thread 0xffc7e090
+  at java.util.LinkedList.linkLast(Ljava/lang/Object;)V (LinkedList.java:142)
+  at java.util.LinkedList.add(Ljava/lang/Object;)Z (LinkedList.java:338)
+  at com.com.wj.jvm.jvm01.OOM2.main([Ljava/lang/String;)V (OOM2.java:30)
+
+  locals:
+    objectId=0xffc7dfa8, line=0
+    objectId=0xffdfff98, line=0
+    objectId=0xffdfff80, line=0
+    objectId=0xffc7dfa8, line=2
+
