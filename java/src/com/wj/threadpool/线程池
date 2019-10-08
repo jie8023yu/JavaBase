@@ -1,0 +1,104 @@
+为什么要用线程池？？？
+    1.降低资源的消耗，降低线程创建和销毁的资源损耗
+    2.提高响应速度，线程的创建时间为T1,执行时间为T2，销毁时间为T3，免去T1和T3的时间
+    3.提高线程的可管理性
+实现一个自己的线程池
+    存在一些问题
+JDK自带的线程池
+    最基本的类
+        ThreadPoolExecutor
+            JDK所有线程池的父类
+
+            各个参数的含义：
+            int corePoolSize
+                线程池中的核心线程数，< corePoolsize 就会创建新线程， = corePoolSize,这个任务就会保存到BlockingQueue
+            int maximumPoolSize
+                运行的最大线程数，BlockQueue也满了， < maximunPoolSize 时候就会创建新的线程
+            long keepAliveTime
+                线程空闲下来后，存活的时间，这个参数在 > corePoolSize 才有用
+            TimeUnit unit
+                存活时间的单位值
+            BlockingQueue<Runnable> workQueue
+                保存任务的阻塞队列
+            ThreadFactory threadFactory
+                创建线程的的工厂，给新创建的线程赋予名字
+            RejectedExecutionHandler handler
+                饱和策略
+
+                AbortPolicy:
+                    直接抛出异常，默认
+                CallerRunsPolicy:
+                    用调用者所在的线程来执行任务
+                DiscardOldersPolicy:
+                    丢弃阻塞队列里最老的任务，队列里面最靠前的任务
+                DiscardPolicy:
+                    当前任务直接丢弃
+
+                实现自己的饱和策略，实现RejectedExecutionHandler接口
+
+            提交任务
+                execute(Runnable command)   不需要返回 ThreadPoolExecutor
+                Future<T> submit(Callable<T> task)  需要返回  AbstractExecutorService
+            关闭线程池
+                shutdown(),shutdownNow()
+                shutdownNow：设置线程池的状态，还会尝试停止正在运行或者暂停任务的线程
+                shutdown：设置线程池的状态，只会中断所有没有执行任务的线程
+            合理配置线程池
+                根据任务的性质
+                    计算密集型（CPU）
+                        只使用CPU和内存
+                        例如：
+                            加密，大数分解，正则
+
+                        Cpu数要适当小一些，最大推荐：机器的CPU核心数(Runtime.getRuntime().availableProcessors())+1
+
+                        为什么+1？？？？
+                            防止页缺失的情况
+
+                    IO密集型
+                        例如：
+                            读取文件，数据库连接，网络通讯
+                        线程数适当大一些，机器的CPU核心数 * 2
+                    混合型
+                        尽量拆分
+                        IO密集 > 计算密集  拆分意义不大
+            队列的选择上
+                应用使用有界还是无界
+                无界队列可能导致内存溢出。
+
+                系统预定义的线程池
+                    FixedThreadPool
+                        创建固定线程数量的，适合负载比较重的服务器，使用了无界队列（LinkedBlockingQueue）,
+                    SingleThreadExecutor
+                        创建单个线程，使用场景：需要顺序保证执行任务，不会有多个线程活动，无界队列（LinkedBlockingQueue）
+                    CachedThreadPool
+                        会根据需要来创建献策的，执行很多短期异步任务的程序，使用队列SynchronousQueue
+                        可能会无限创建线程（在处理速度小于提交任务的速度）
+                    WorkStealingPool（JDK7以后）
+                        这个是使用ForkJoinPool 来实现
+                        
+                    ScheduledThreadPoolExecutor
+                        需要定期执行周期任务
+
+                        newSingleThreadScheduledExecutor  只有一个线程，周期性的执行任务
+
+                        方法说明：
+                            schedule：只执行一次，任务还可以延时执行
+                            scheduleAtFixedRate:提交固定时间间隔的任务  两个任务头的间隔
+                            scheduleWithFixedDelay：提交固定延时间隔执行的任务   结束时间和开头时间的间隔
+
+                            scheduleAtFixedRate
+                                如果任务超时了怎么办？？？？
+                                    下个任务马上开始执行
+                                规定60s执行一次，有任务执行了80s，下个任务马上开始执行
+
+                            scheduleWithFixedDelay
+                                会根据上一个任务结束的时间
+
+
+
+                    Executor框架
+
+
+                    了解CompletionService
+
