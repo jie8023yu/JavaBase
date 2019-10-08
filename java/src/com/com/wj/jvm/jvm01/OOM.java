@@ -6,6 +6,11 @@ import java.util.List;
 /**
  * 演示堆溢出
  *      -Xms5m -Xmx5m -XX:+PrintGC
+ *
+ *
+ *      加参数
+ *      -XX:+HeapDumpOnOutOfMemoryError
+ *
  */
 public class OOM {
 
