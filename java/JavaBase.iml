@@ -27,5 +27,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="ObjectSize" level="project" />
   </component>
 </module>

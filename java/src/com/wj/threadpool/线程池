@@ -102,3 +102,13 @@ JDK自带的线程池
 
                     了解CompletionService
 
+Executor接口
+ExecutorService接口  extends Executor
+    Future submit()
+ThreadPoolExecutor extends AbstractExecutorService extends ExecutorService
+ForkJoinPool
+    分解汇总的任务
+Runnable
+Callable  call() 有返回值
+Future call()方法执行后的返回结果放在这里
+
