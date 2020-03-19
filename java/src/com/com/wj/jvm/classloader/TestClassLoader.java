@@ -16,5 +16,7 @@ public class TestClassLoader {
         //ClassLoader的对应Class的类加载器也是Bootstrap
         System.out.println(sun.net.spi.nameservice.dns.DNSNameService.class.getClassLoader().getClass().getClassLoader());
         System.out.println(TestClassLoader.class.getClass().getClassLoader());
+
+
     }
 }

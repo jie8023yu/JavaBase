@@ -14,6 +14,14 @@ public class DefineClassLoader2 extends ClassLoader {
 
     private String path;
 
+    /**
+     * -Djava.system.class.loader = com.com.wj.jvm.classloader.DefineClassLoader2
+     * 设置这个必须有下面这种构造器
+     * @param parent
+     */
+    public DefineClassLoader2(ClassLoader parent) {
+        super(parent);
+    }
 
     public DefineClassLoader2(String path) {
         super();
