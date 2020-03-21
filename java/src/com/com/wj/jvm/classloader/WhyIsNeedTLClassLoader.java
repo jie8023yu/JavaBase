@@ -98,4 +98,57 @@ class TestUseContextCL {
     }
 }
 
+/**
+ * 所谓的DriverManger的例子，java提供了Driver的规范，然后由各个厂商提供对应的实现
+ * 加载rt.jar使用的是引导类加载器，是最顶级的那个类加载器，如果按照正常来考虑，如下例子，使用自定义类加载器加载TestLoad类，在TestLoad类中使用DriverManager
+ * 因为TestLoad类使用DefineClassLoader2加载器来加载，由于DriverManager也是在TestLoad中使用，此时也会用DefineClassLoader2作为定义加载器，
+ * 最终这个DriverManager是由引导类加载器加载，如果调用getConnection方法，比如说：使用ServiceLoader去获取了META-INF/下面的实现类
+ * 例如：com.mysql.jdbc.Driver
+ * 如果直接在DriverManager里面写Class.forName("com.mysql.jdbc.Driver") 此时会使用加载DriverManager的Bootstrap类加载器去尝试加载这个类，
+ * 发现是加载不到的，所以这个地方不能使用之前的双亲委托模型（主要是这里设计了SPI的模型）
+ * 比如说：以前写获取数据库连接的方法：
+ * 1.Class.forName("com.mysql.jdbc.Driver"); 把驱动类加载到JVM中
+ * 2.Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/test","root","root"); 获取连接
+ * //如果要访问Oracle的就要显式的加载Oracle的驱动类，这样写很硬编码，很不好
+ *
+ * 所以推出了SPI的方式：
+ * 从JDK1.6开始，DriverManager就不用再显式的加载
+ * 只需要在目录下存在这样的结构META-INF/services/接口名称
+ * 例如：META-INF/services/com.sql.Driver  这个文件里面写上具体的实现类
+ * DriverManager在类加载时，会有一个static静态块执行，会使用ServiceLoader去加载
+ * 通过迭代器的模式：ServiceLoader定义了一个LazyInterator
+ * ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
+ * Iterator<Driver> driversIterator = loadedDrivers.iterator();
+ * driversIterator.hasNext() -》
+ *    这里面设置的一个classLoader就是当前线程上下文类加载器，
+ *    加载配置文件：configs = loader.getResources(fullName); 如果此处不使用这种方式，使用默认的肯定加载不到
+ *    加载过后，得到DriverInfo，将这些DriverInfo放在registeredDrivers里面
+ *    循环过程中执行driversIterator.next();----》
+ *      hasNextService()---》
+ *          c = Class.forName(cn, false, loader);  //尝试加载，此处的类加载器就是设置的上下文类加载器
+ *    getConnection方法执行时，循环遍历整个registeredDrivers
+ *    isDriverAllowed(aDriver.driver, callerCL) 判断能否加载，如果能加载，使用使用这个方法的类的类加载器来尝试加载
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+class TestJdbc {
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+//        System.out.println(DriverManager.class.getClassLoader());
+//        System.out.println(Connection.class.getClassLoader());
+//        System.out.println(TestJdbc.class.getClassLoader());
+//        System.out.println();
+//        DefineClassLoader2 classLoader = new DefineClassLoader2("E:/test");
+        DefineClassLoader2 classLoader = new DefineClassLoader2("E:/test");
+        DefineClassLoader2 context = new DefineClassLoader2("E:/test2");
+//        Thread.currentThread().setContextClassLoader(context);
+        Class clz = classLoader.loadClass("com.com.wj.jvm.classloader.TestLoad");
+        clz.newInstance();
+        System.out.println(clz.getClassLoader());
+    }
+}
+
 
