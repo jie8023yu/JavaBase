@@ -3,6 +3,10 @@ package com.com.wj.jvm.classloader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Enumeration;
 
 /**
  * 自定义类加载器
@@ -28,6 +32,11 @@ public class DefineClassLoader2 extends ClassLoader {
         this.path = path;
     }
 
+    public DefineClassLoader2(ClassLoader parent,String path) {
+        super(parent);
+        this.path = path;
+    }
+
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -36,7 +45,7 @@ public class DefineClassLoader2 extends ClassLoader {
 //        File file = new File("I:/test/",name.replaceAll("\\.","/").concat(".class"));
 
         System.out.println("加载的类：" + name);
-        File file = new File(path + "/",name.replaceAll("\\.","/").concat(".class"));
+           File file = new File(path + "/",name.replaceAll("\\.","/").concat(".class"));
         try {
             FileInputStream fis = new FileInputStream(file);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -83,5 +92,13 @@ public class DefineClassLoader2 extends ClassLoader {
 //        DefineClassLoader classLoader = new DefineClassLoader();
 //        classLoader.findClass("com.com.wj.jvm.classloader.Test2");
 //        System.out.println("1");
+
     }
+
+
+    @Override
+    protected Enumeration<URL> findResources(String name) throws IOException {
+        return new URLClassLoader(new URL[] {DefineClassLoader2.getSystemResource(path)}).findResources(name);
+    }
+
 }
