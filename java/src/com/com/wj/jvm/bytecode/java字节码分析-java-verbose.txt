@@ -1,0 +1,79 @@
+Classfile /I:/ws/JavaBase/JavaBase/out/production/JavaBase/com/com/wj/jvm/bytecode/MyTest.class
+  Last modified 2020-3-21; size 532 bytes
+  MD5 checksum e1e51172007d5fe547f314a885900f71
+  Compiled from "MyTest.java"
+public class com.com.wj.jvm.bytecode.MyTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #4.#20         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #3.#21         // com/com/wj/jvm/bytecode/MyTest.a:Ljava/lang/String;
+   #3 = Class              #22            // com/com/wj/jvm/bytecode/MyTest
+   #4 = Class              #23            // java/lang/Object
+   #5 = Utf8               a
+   #6 = Utf8               Ljava/lang/String;
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               LocalVariableTable
+  #12 = Utf8               this
+  #13 = Utf8               Lcom/com/wj/jvm/bytecode/MyTest;
+  #14 = Utf8               getA
+  #15 = Utf8               ()Ljava/lang/String;
+  #16 = Utf8               setA
+  #17 = Utf8               (Ljava/lang/String;)V
+  #18 = Utf8               SourceFile
+  #19 = Utf8               MyTest.java
+  #20 = NameAndType        #7:#8          // "<init>":()V
+  #21 = NameAndType        #5:#6          // a:Ljava/lang/String;
+  #22 = Utf8               com/com/wj/jvm/bytecode/MyTest
+  #23 = Utf8               java/lang/Object
+{
+  public com.com.wj.jvm.bytecode.MyTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/com/wj/jvm/bytecode/MyTest;
+
+  public java.lang.String getA();
+    descriptor: ()Ljava/lang/String;
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #2                  // Field a:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 9: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/com/wj/jvm/bytecode/MyTest;
+
+  public void setA(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #2                  // Field a:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 13: 0
+        line 14: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   Lcom/com/wj/jvm/bytecode/MyTest;
+            0       6     1     a   Ljava/lang/String;
+}
+SourceFile: "MyTest.java"
