@@ -14,11 +14,13 @@ package com.com.wj.jvm.gc;
  * ParOldGen: Parallel Old(老年代垃圾收集器)
  *
  */
-public class Test {
+public class GCParam {
     public static void main(String[] args) {
 //        test();
 //        test2();
-        test3();
+//        test3();
+//        test4();
+        test5();
     }
 
     /**
@@ -112,9 +114,27 @@ public class Test {
 
     /**
      * java -XX:+PrintCommandLinFlags -version
+     * 保持上述参数的同时，增加-XX:PretenureSizeThreshold=4194304 （4M，单位是kb） 阈值
+     * 新创建的对象大小大于这个设置，直接在老年代创建，不在新生代创建
+     * 这个参数必须配合串行处理器使用 -XX:+UseSerialGC
      */
     public static void test4() {
         int size = 1024 * 1024;
-        byte[] myAlloc = new byte[size];
+        byte[] myAlloc = new byte[5 * size];
+    }
+
+    /**
+     * -XX:MaxTenuringThreshold=5 调节对象晋升（promote）到老年代阈值的GC中，设置阈值的最大值
+     *          参数默认值为15，CMS默认值为6，G1默认是15（在JVM中，该数值是由4个bit表示的，所以最大值1111,即15）
+     * 经历了多少次GC后，存活的对象会在from survivor和to survivor中来回存放，前提是这两个空间有足够的大小来存放这些数据，
+     * 在GC算法中，当进行交换时，如果对象数据大于survivor的50%，会将所有的对象都晋升到老年代，不会再按照阈值来计算
+     */
+    public static void test5() {
+        int size = 1024 * 1024;
+        byte[] myAlloc = new byte[2 * size];
+        byte[] myAlloc2 = new byte[2 * size];
+        byte[] myAlloc3 = new byte[2 * size];
+        byte[] myAlloc4 = new byte[2 * size];
+        byte[] myAlloc5 = new byte[2 * size];
     }
 }
