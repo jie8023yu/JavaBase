@@ -20,7 +20,8 @@ public class GCParam {
 //        test2();
 //        test3();
 //        test4();
-        test5();
+//        test5();
+        test6();
     }
 
     /**
@@ -137,4 +138,101 @@ public class GCParam {
         byte[] myAlloc4 = new byte[2 * size];
         byte[] myAlloc5 = new byte[2 * size];
     }
+
+    /**
+     *启动参数：
+     * -XX:TargetSurvivorRatio=60 超过60%这个百分比，重新计算晋升阈值
+     * -verbose:gc -Xmx200M -Xmn50M -XX:TargetSurvivorRatio=60 -XX:+PrintTenuringDistribution -XX:+PrintGCDetails -XX:+PrintGCDateStamps
+     * -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:MaxTenuringThreshold=3
+     *
+     * 日志：
+     * 2020-03-24T22:32:01.148+0800: [GC (Allocation Failure) 2020-03-24T22:32:01.152+0800: [ParNew
+     * Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+     * - age   1:    1703968 bytes,    1703968 total
+     * : 40144K->1716K(46080K), 0.0023322 secs] 40144K->1716K(199680K), 0.0062569 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+     * 1111111
+     * 2020-03-24T22:32:02.159+0800: [GC (Allocation Failure) 2020-03-24T22:32:02.159+0800: [ParNew
+     * Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+     * - age   1:       1096 bytes,       1096 total
+     * - age   2:    1696528 bytes,    1697624 total
+     * : 42447K->1906K(46080K), 0.0019508 secs] 42447K->1906K(199680K), 0.0020038 secs] [Times: user=0.09 sys=0.05, real=0.00 secs]
+     * 22222
+     * 2020-03-24T22:32:03.167+0800: [GC (Allocation Failure) 2020-03-24T22:32:03.167+0800: [ParNew
+     * Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+     * - age   1:         56 bytes,         56 total
+     * - age   2:       1096 bytes,       1152 total
+     * - age   3:    1696352 bytes,    1697504 total
+     * : 42432K->1901K(46080K), 0.0028718 secs] 42432K->1901K(199680K), 0.0029649 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+     * 3333
+     * 2020-03-24T22:32:04.178+0800: [GC (Allocation Failure) 2020-03-24T22:32:04.178+0800: [ParNew
+     * Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+     * - age   1:         48 bytes,         48 total
+     * - age   2:         56 bytes,        104 total
+     * - age   3:       1096 bytes,       1200 total
+     * : 42629K->162K(46080K), 0.0117894 secs] 42629K->1843K(199680K), 0.0118774 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+     * 4444
+     * 2020-03-24T22:32:05.196+0800: [GC (Allocation Failure) 2020-03-24T22:32:05.196+0800: [ParNew
+     * Desired survivor size 3145728 bytes, new threshold 1 (max 3)
+     * - age   1:    3145824 bytes,    3145824 total
+     * - age   2:         48 bytes,    3145872 total
+     * - age   3:         56 bytes,    3145928 total
+     * : 40894K->3112K(46080K), 0.0060554 secs] 42575K->4795K(199680K), 0.0061467 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+     * 5555
+     * 2020-03-24T22:32:06.208+0800: [GC (Allocation Failure) 2020-03-24T22:32:06.208+0800: [ParNew
+     * Desired survivor size 3145728 bytes, new threshold 3 (max 3)
+     * - age   1:         48 bytes,         48 total
+     * : 43847K->6K(46080K), 0.0034150 secs] 45529K->4761K(199680K), 0.0034577 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+     * 6666
+     * hello world
+     * Heap
+     *  par new generation   total 46080K, used 15962K [0x00000000f3800000, 0x00000000f6a00000, 0x00000000f6a00000)
+     *   eden space 40960K,  38% used [0x00000000f3800000, 0x00000000f4794f10, 0x00000000f6000000)
+     *   from space 5120K,   0% used [0x00000000f6000000, 0x00000000f6001b10, 0x00000000f6500000)
+     *   to   space 5120K,   0% used [0x00000000f6500000, 0x00000000f6500000, 0x00000000f6a00000)
+     *  concurrent mark-sweep generation total 153600K, used 4754K [0x00000000f6a00000, 0x0000000100000000, 0x0000000100000000)
+     *  Metaspace       used 3223K, capacity 4500K, committed 4864K, reserved 1056768K
+     *   class space    used 350K, capacity 388K, committed 512K, reserved 1048576K
+     *
+     */
+    public static void test6()  {
+        try {
+            byte[] byte1 = new byte[512 * 1024];
+            byte[] byte2 = new byte[512 * 1024];
+            myGc();
+            Thread.sleep(1000);
+            System.out.println("1111111");
+            myGc();
+            Thread.sleep(1000);
+            System.out.println("22222");
+            myGc();
+            Thread.sleep(1000);
+            System.out.println("3333");
+            myGc();
+            Thread.sleep(1000);
+            System.out.println("4444");
+
+            byte[] byte3 = new byte[1024 * 1024];
+            byte[] byte4 = new byte[1024 * 1024];
+            byte[] byte5 = new byte[1024 * 1024];
+            myGc();
+            Thread.sleep(1000);
+            System.out.println("5555");
+
+            myGc();
+            Thread.sleep(1000);
+            System.out.println("6666");
+
+            System.out.println("hello world");
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    private static void myGc() {
+        for (int i = 0 ; i < 40 ; i++) {
+            byte[] byteArray = new byte[1024 * 1024];
+        }
+    }
+
 }
