@@ -2375,6 +2375,7 @@ void CMSCollector::collect_in_background(bool clear_all_soft_refs, GCCause::Caus
           ReleaseForegroundGC x(this);
 
           VM_CMS_Final_Remark final_remark_op(this);
+          //最终标记阶段，实际就是调用VM_CMS_FINAL_REMARK中的doit()方法
           VMThread::execute(&final_remark_op);
         }
         assert(_foregroundGCShouldWait, "block post-condition");
@@ -6624,7 +6625,16 @@ void CMSCollector::do_CMS_operation(CMS_op_type op, GCCause::Cause gc_cause) {
   TraceCPUTime tcpu(PrintGCDetails, true, gclog_or_tty);
   GCTraceTime t(GCCauseString("GC", gc_cause), PrintGC, !PrintGCDetails, NULL);
   TraceCollectorStats tcs(counters());
+  /*
+  注意：其实初始标记和重新标记阶段都是在这里做的，根据传入的值不同  
 
+  CMS_op_checkpointRootsFinal(走下面的)
+  重载方法，初始标记调用checkpointRootsInitial(true);
+  核心方法都是checkpointRootsFinal()方法
+  checkpointRootsFinal(true,    // asynch
+                           false,   // !clear_all_soft_refs
+                           false);
+  */
   switch (op) {
     case CMS_op_checkpointRootsInitial: {
       SvcGCMarker sgcm(SvcGCMarker::OTHER);

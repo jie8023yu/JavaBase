@@ -101,7 +101,7 @@ ConcurrentMarkSweepThread::ConcurrentMarkSweepThread(CMSCollector* collector)
   _sltMonitor = SLT_lock;
   assert(!CMSIncrementalMode || icms_is_enabled(), "Error");
 }
-
+//CMS工作线程运行，实际调用的方法入口
 void ConcurrentMarkSweepThread::run() {
   assert(this == cmst(), "just checking");
 
@@ -142,6 +142,7 @@ void ConcurrentMarkSweepThread::run() {
     if (_should_terminate) break;
     GCCause::Cause cause = _collector->_full_gc_requested ?
       _collector->_full_gc_cause : GCCause::_cms_concurrent_mark;
+      //核心调用过程
     _collector->collect_in_background(false, cause);
   }
   assert(_should_terminate, "just checking");
