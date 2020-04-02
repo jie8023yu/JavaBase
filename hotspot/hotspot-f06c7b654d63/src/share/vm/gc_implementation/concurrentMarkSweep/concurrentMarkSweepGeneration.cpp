@@ -5032,7 +5032,15 @@ void CMSCollector::checkpointRootsFinal(bool asynch,
                         _young_gen->used() / K,
                         _young_gen->capacity() / K);
   }
+  /**
+   * 最终标记阶段，传入的三个值为true ,false,false
+   * */
   if (asynch) {
+    /*
+    会判断CMSScavengeBeforeRemark参数，当java vm设置了这个参数，是不是就就一定会执行年轻代的垃圾回收
+    并不是像网上说的一样，可能会执行，并且这个参数设置也不是在pre-aboratable-clean阶段结束的时候执行，而是在最终标记阶段执行时
+    判断的
+    */
     if (CMSScavengeBeforeRemark) {
       GenCollectedHeap* gch = GenCollectedHeap::heap();
       // Temporarily set flag to false, GCH->do_collection will
@@ -5064,7 +5072,10 @@ void CMSCollector::checkpointRootsFinal(bool asynch,
   verify_overflow_empty();
   SpecializationStats::print();
 }
+/*
+最终标记老年代的方法
 
+*/
 void CMSCollector::checkpointRootsFinalWork(bool asynch,
   bool clear_all_soft_refs, bool init_mark_was_synchronous) {
 
@@ -5122,6 +5133,10 @@ void CMSCollector::checkpointRootsFinalWork(bool asynch,
       // dirtied since the first checkpoint in this GC cycle and prior to
       // the most recent young generation GC, minus those cleaned up by the
       // concurrent precleaning.
+      /*
+      CMSParallelRemarkEnabled默认是为true，表示是否并行执行Remark
+
+      */
       if (CMSParallelRemarkEnabled && CollectedHeap::use_parallel_gc_threads()) {
         GCTraceTime t("Rescan (parallel) ", PrintGCDetails, false, _gc_timer_cm);
         do_remark_parallel();
@@ -5518,6 +5533,7 @@ CMSParMarkTask::do_young_space_rescan(uint worker_id,
       // Verify that "start" is an object boundary
       assert(mr.is_empty() || oop(mr.start())->is_oop(),
              "Should be an oop");
+      //遍历这个区域中的对象所引用的其他对象  
       space->par_oop_iterate(mr, cl);
     }
     pst->all_tasks_completed();
@@ -5890,6 +5906,7 @@ void CMSCollector::do_remark_parallel() {
   // separate thread causes wide variance in run times.  We can't help this
   // in the multi-threaded case, but we special-case n=1 here to get
   // repeatable measurements of the 1-thread overhead of the parallel code.
+  //此处实际上都是调用work方法（CMSParRemarkTask）
   if (n_workers > 1) {
     // Make refs discovery MT-safe, if it isn't already: it may not
     // necessarily be so, since it's possible that we are doing
@@ -6638,6 +6655,7 @@ void CMSCollector::do_CMS_operation(CMS_op_type op, GCCause::Cause gc_cause) {
   switch (op) {
     case CMS_op_checkpointRootsInitial: {
       SvcGCMarker sgcm(SvcGCMarker::OTHER);
+      //初始标记执行的流程
       checkpointRootsInitial(true);       // asynch
       if (PrintGC) {
         _cmsGen->printOccupancy("initial-mark");
