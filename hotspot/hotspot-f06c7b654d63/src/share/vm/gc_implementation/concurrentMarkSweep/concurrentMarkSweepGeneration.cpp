@@ -5242,6 +5242,10 @@ void CMSParInitialMarkTask::work(uint worker_id) {
   CMKlassClosure klass_closure(&par_mri_cl);
 
   // ---------- young gen roots --------------
+  /**
+   * 
+   * 这一步主要是扫描整个年轻代，找到年轻中引用的老年代（个人认为地方找的年轻代必须是GCRoots引用的）
+   **/
   {
     work_on_young_gen_roots(worker_id, &par_mri_cl);
     _timer.stop();
@@ -5255,6 +5259,9 @@ void CMSParInitialMarkTask::work(uint worker_id) {
   // ---------- remaining roots --------------
   _timer.reset();
   _timer.start();
+  /**
+   * 这一步主要找到GCRoots下直接引用的老年代
+   * **/
   gch->gen_process_strong_roots(_collector->_cmsGen->level(),
                                 false,     // yg was scanned above
                                 false,     // this is parallel code
