@@ -45,7 +45,11 @@ class KlassRemSet {
   bool mod_union_is_clear();
   void clear_mod_union();
 };
-
+/**
+ * Gen就是表示分代内存的Generation的缩写
+ * Rem是Remembered的缩写
+ * 
+ **/
 class GenRemSet: public CHeapObj<mtGC> {
   friend class Generation;
 
@@ -53,6 +57,9 @@ class GenRemSet: public CHeapObj<mtGC> {
   KlassRemSet _klass_rem_set;
 
 public:
+  /*
+GenRemSet同样定义了一个枚举Name来描述子类
+  */
   enum Name {
     CardTable,
     Other
