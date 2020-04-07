@@ -3699,6 +3699,9 @@ void CMSCollector::checkpointRootsInitialWork(bool asynch) {
 
   gch->ensure_parsability(false);  // fill TLABs, but no need to retire them
   // Update the saved marks which may affect the root scans.
+  /**
+   * 更新各代包含的Space的save_mark_word
+   * */
   gch->save_marks();
 
   // weak reference processing has not started yet.
@@ -3706,10 +3709,12 @@ void CMSCollector::checkpointRootsInitialWork(bool asynch) {
 
   // Need to remember all newly created CLDs,
   // so that we can guarantee that the remark finds them.
+  //另外保存所有新创建的ClassLoaderData
   ClassLoaderDataGraph::remember_new_clds(true);
 
   // Whenever a CLD is found, it will be claimed before proceeding to mark
   // the klasses. The claimed marks need to be cleared before marking starts.
+  //清除所有ClassLoaderData的claimed标识，该标识表示该ClassLoaderData已经遍历过了
   ClassLoaderDataGraph::clear_claimed_marks();
 
   if (CMSPrintEdenSurvivorChunks) {
@@ -5386,6 +5391,9 @@ void CMSParRemarkTask::work(uint worker_id) {
   // the critical path; thus, it's best to start off that
   // work first.
   // ---------- young gen roots --------------
+  /*
+  这里调用扫描年轻代的逻辑跟初始标记用的同一个方法
+  */
   {
     work_on_young_gen_roots(worker_id, &par_mrias_cl);
     _timer.stop();
@@ -5540,7 +5548,7 @@ CMSParMarkTask::do_young_space_rescan(uint worker_id,
       // Verify that "start" is an object boundary
       assert(mr.is_empty() || oop(mr.start())->is_oop(),
              "Should be an oop");
-      //遍历这个区域中的对象所引用的其他对象  
+      //遍历这个区域中的对象所引用的其他对象 (实际调用方法定义在space.cpp中，667行左右的位置)
       space->par_oop_iterate(mr, cl);
     }
     pst->all_tasks_completed();

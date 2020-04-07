@@ -102,8 +102,10 @@ class CardTableModRefBS: public ModRefBarrierSet {
   const size_t    _last_valid_index; // index of the last valid element
   const size_t    _page_size;        // page size used when mapping _byte_map
   const size_t    _byte_map_size;    // in bytes
+  //用于标记的卡表字节数组
   jbyte*          _byte_map;         // the card marking array
 
+  //当前的MemRegion在_covered数组的索引
   int _cur_covered_regions;
   // The covered regions should be in address order.
   MemRegion* _covered;
@@ -137,6 +139,9 @@ class CardTableModRefBS: public ModRefBarrierSet {
   int find_covering_region_containing(HeapWord* addr);
 
   // Resize one of the regions covered by the remembered set.
+  /**
+   * 调整
+   * */
   void resize_covered_region(MemRegion new_region);
 
   // Returns the leftmost end of a committed region corresponding to a
@@ -151,6 +156,7 @@ class CardTableModRefBS: public ModRefBarrierSet {
   MemRegion committed_unique_to_self(int self, MemRegion mr) const;
 
   // Mapping from address to card marking array entry
+  //将某个地址映射到卡表的字节数组元素
   jbyte* byte_for(const void* p) const {
     assert(_whole_heap.contains(p),
            err_msg("Attempt to access p = "PTR_FORMAT" out of bounds of "
@@ -378,6 +384,10 @@ public:
 
   // ModRefBS functions.
   virtual void invalidate(MemRegion mr, bool whole_heap = false);
+  /**
+   * 清除卡表，将所有的卡表状态置为clean_card
+   * 
+   * */
   void clear(MemRegion mr);
   void dirty(MemRegion mr);
 
@@ -390,14 +400,23 @@ public:
   // *decreasing* address order.  (This order aids with imprecise card
   // marking, where a dirty card may cause scanning, and summarization
   // marking, of objects that extend onto subsequent cards.)
+  /**
+  遍历整个堆内存的对应的MemRegion
+  这个遍历实际上是倒序的遍历，从内存地址大的往小的遍历
+  **/
   void mod_card_iterate(MemRegionClosure* cl) {
+    //这个方法实际定义在了cardTableModeRefBS.cpp文件中
     non_clean_card_iterate_serial(_whole_heap, cl);
   }
 
   // Like the "mod_cards_iterate" above, except only invokes the closure
   // for cards within the MemRegion "mr" (which is required to be
   // card-aligned and sized.)
+  /**
+   * 遍历指定MemRegion
+   **/
   void mod_card_iterate(MemRegion mr, MemRegionClosure* cl) {
+    //这个方法实际定义在了cardTableModeRefBS.cpp文件中
     non_clean_card_iterate_serial(mr, cl);
   }
 
@@ -405,12 +424,23 @@ public:
 
   // Apply closure "cl" to the dirty cards containing some part of
   // MemRegion "mr".
+  /**
+   * 遍历方法
+   * 这个方法也定义在cardTableModeRefBS.cpp文件中
+   * 这个方法必须传入要遍历的MemRegion，这个方法是正序的，从地址地址最低往最高的遍历
+   * */
   void dirty_card_iterate(MemRegion mr, MemRegionClosure* cl);
 
   // Return the MemRegion corresponding to the first maximal run
   // of dirty cards lying completely within MemRegion mr.
   // If reset is "true", then sets those card table entries to the given
   // value.
+  /**
+   * 遍历方法，这个多一个是否设置值，bool reset,和要设置的值：reset_val
+   * 正序遍历，跟上面两种遍历不同的是，这个支持在遍历结束后，将卡表的状态置为想要的状态
+   * 还有一个不同是，这个只要找到了dirty card，把所有连续的dirty card找完后，就不在寻找了，即使
+   * 还有内存区域对应的是脏表状态，也不找了
+   * */
   MemRegion dirty_card_range_after_reset(MemRegion mr, bool reset,
                                          int reset_val);
 

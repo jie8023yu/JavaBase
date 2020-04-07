@@ -31,7 +31,10 @@ class MutableSpace;
 class ObjectStartArray;
 class PSPromotionManager;
 class GCTaskQueue;
-
+/**
+ * ParallelScavenge收集器使用的卡表
+ * 继承CardTableModRefBS
+ **/
 class CardTableExtension : public CardTableModRefBS {
  private:
   // Support methods for resizing the card table.
@@ -48,6 +51,9 @@ class CardTableExtension : public CardTableModRefBS {
   static void verify_all_young_refs_precise_helper(MemRegion mr);
 
  public:
+  /**
+   * 添加了枚举
+   **/
   enum ExtendedCardValue {
     youngergen_card   = CardTableModRefBS::CT_MR_BS_last_reserved + 1,
     verify_card       = CardTableModRefBS::CT_MR_BS_last_reserved + 5
@@ -60,6 +66,9 @@ class CardTableExtension : public CardTableModRefBS {
   // BarrierSet::Name kind() { return BarrierSet::CardTableExtension; }
 
   // Scavenge support
+  /**
+   * 新增了一个并行遍历卡表的方法
+   **/
   void scavenge_contents_parallel(ObjectStartArray* start_array,
                                   MutableSpace* sp,
                                   HeapWord* space_top,

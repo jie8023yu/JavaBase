@@ -39,14 +39,17 @@ G1SATBCardTableModRefBS::G1SATBCardTableModRefBS(MemRegion whole_heap,
 
 void G1SATBCardTableModRefBS::enqueue(oop pre_val) {
   // Nulls should have been already filtered.
+  //必须是OOP指针
   assert(pre_val->is_oop(true), "Error");
 
   if (!JavaThread::satb_mark_queue_set().is_active()) return;
   Thread* thr = Thread::current();
   if (thr->is_Java_thread()) {
+    //如果是java线程
     JavaThread* jt = (JavaThread*)thr;
     jt->satb_mark_queue().enqueue(pre_val);
   } else {
+    //如果是JVM线程
     MutexLockerEx x(Shared_SATB_Q_lock, Mutex::_no_safepoint_check_flag);
     JavaThread::satb_mark_queue_set().shared_satb_queue()->enqueue(pre_val);
   }
@@ -59,6 +62,7 @@ G1SATBCardTableModRefBS::write_ref_array_pre_work(T* dst, int count) {
   for (int i = 0; i < count; i++, elem_ptr++) {
     T heap_oop = oopDesc::load_heap_oop(elem_ptr);
     if (!oopDesc::is_null(heap_oop)) {
+      //核心方法
       enqueue(oopDesc::decode_heap_oop_not_null(heap_oop));
     }
   }
@@ -86,20 +90,26 @@ bool G1SATBCardTableModRefBS::mark_card_deferred(size_t card_index) {
     }
   }
   if (new_val != val) {
+    //原子更新状态
     Atomic::cmpxchg(new_val, &_byte_map[card_index], val);
   }
   return true;
 }
-
+/**
+ * 
+ **/
 void G1SATBCardTableModRefBS::g1_mark_as_young(const MemRegion& mr) {
+  //
   jbyte *const first = byte_for(mr.start());
   jbyte *const last = byte_after(mr.last());
 
   // Below we may use an explicit loop instead of memset() because on
   // certain platforms memset() can give concurrent readers phantom zeros.
+  //UseMemSetInBOT默认为true，表示是否在GC的代码中使用memset完成内存值设置
   if (UseMemSetInBOT) {
     memset(first, g1_young_gen, last - first);
   } else {
+    //通过指针遍历
     for (jbyte* i = first; i < last; i++) {
       *i = g1_young_gen;
     }
@@ -133,6 +143,7 @@ G1SATBCardTableLoggingModRefBS::write_ref_field_work(void* field,
   if (*byte != dirty_card) {
     *byte = dirty_card;
     Thread* thr = Thread::current();
+    //将该卡表项放入DirtyCardQueue中
     if (thr->is_Java_thread()) {
       JavaThread* jt = (JavaThread*)thr;
       jt->dirty_card_queue().enqueue(byte);
@@ -171,6 +182,7 @@ G1SATBCardTableLoggingModRefBS::invalidate(MemRegion mr, bool whole_heap) {
     }
   } else {
     // skip all consecutive young cards
+    //先清除一把连续是年轻代的空间（这些不处理）
     for (; byte <= last_byte && *byte == g1_young_gen; byte++);
 
     if (byte <= last_byte) {
@@ -179,9 +191,11 @@ G1SATBCardTableLoggingModRefBS::invalidate(MemRegion mr, bool whole_heap) {
       if (thr->is_Java_thread()) {
         JavaThread* jt = (JavaThread*)thr;
         for (; byte <= last_byte; byte++) {
+          //如果是年轻代，continue
           if (*byte == g1_young_gen) {
             continue;
           }
+          //如果不是年轻代，并且状态不是dirty_card,把它置为dirty_card，并且enquqe（入队）
           if (*byte != dirty_card) {
             *byte = dirty_card;
             jt->dirty_card_queue().enqueue(byte);

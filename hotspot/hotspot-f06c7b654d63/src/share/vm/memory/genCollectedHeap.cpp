@@ -600,6 +600,23 @@ gen_process_strong_roots(int level,
                          KlassClosure* klass_closure) {
   // General strong roots.
 
+  /**
+   * 初始标记传入的值
+   * _collector->_cmsGen->level(),
+                                false,     // yg was scanned above
+                                false,     // this is parallel code
+                                false,     // not scavenging
+                                SharedHeap::ScanningOption(_collector->CMSCollector::roots_scanning_options()),
+                                &par_mri_cl,
+                                true,   // walk all of code cache if (so & SO_CodeCache)
+                                NULL,
+                                &klass_closure
+   * 
+   * 
+   * */
+
+
+
   if (!do_code_roots) {
     SharedHeap::process_strong_roots(activate_scope, is_scavenging, so,
                                      not_older_gens, NULL, klass_closure);

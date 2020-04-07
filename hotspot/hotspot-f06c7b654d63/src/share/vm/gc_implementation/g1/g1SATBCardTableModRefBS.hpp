@@ -36,10 +36,18 @@ class DirtyCardQueueSet;
 
 // This barrier is specialized to use a logging barrier to support
 // snapshot-at-the-beginning marking.
-
+/**
+ * 支持G1的SATB（snapshot-at-the-beginning）并发标记算法而定制的特殊BarrierSet，改写了父类CardTableModRefBS的诸多方法的实现
+ * 
+ * CardTableModRefBS中只用到了dirty_card和clean_card两种CardValue
+ * G1SATBCardTableModRefBS增加了claimed_card和deferred_card两种，
+ * 并自定义了一个扩展的g1_young_gen，表示该卡表项对应的内存区域是一个young gen
+ * 
+ **/ 
 class G1SATBCardTableModRefBS: public CardTableModRefBSForCTRS {
 protected:
   enum G1CardValues {
+    //新定义一个状态
     g1_young_gen = CT_MR_BS_last_reserved << 1
   };
 
@@ -56,7 +64,10 @@ public:
   bool is_a(BarrierSet::Name bsn) {
     return bsn == BarrierSet::G1SATBCT || CardTableModRefBS::is_a(bsn);
   }
-
+  /**
+   * 该方法在CardTableModRefBS中返回false，表示不支持在写入引用类型的属性时执行预处理
+   * G1SATBCardTableModRefBS此处修个了这个方法
+   **/
   virtual bool has_write_ref_pre_barrier() { return true; }
 
   // This notes that we don't need to access any BarrierSet data
@@ -64,6 +75,7 @@ public:
   template <class T> static void write_ref_field_pre_static(T* field, oop newVal) {
     T heap_oop = oopDesc::load_heap_oop(field);
     if (!oopDesc::is_null(heap_oop)) {
+      //如果指针压缩了，即T是narrowOop时需要做decode还原
       enqueue(oopDesc::decode_heap_oop(heap_oop));
     }
   }
@@ -114,18 +126,25 @@ public:
     jbyte val = _byte_map[card_index];
     return (val & (clean_card_mask_val() | claimed_card_val())) == claimed_card_val();
   }
-
+  /**
+   * 设置claimed_card状态值
+   **/
   void set_card_claimed(size_t card_index) {
+      //获取对应卡表的位置
       jbyte val = _byte_map[card_index];
       if (val == clean_card_val()) {
         val = (jbyte)claimed_card_val();
       } else {
+        //使用或运算，会保留卡表项原来的状态
         val |= (jbyte)claimed_card_val();
       }
       _byte_map[card_index] = val;
   }
 
   void verify_g1_young_region(MemRegion mr) PRODUCT_RETURN;
+  /**
+   * 设置卡表为g1_young_gen状态
+   **/
   void g1_mark_as_young(const MemRegion& mr);
 
   bool mark_card_deferred(size_t card_index);
@@ -139,6 +158,11 @@ public:
 
 // Adds card-table logging to the post-barrier.
 // Usual invariant: all dirty cards are logged in the DirtyCardQueueSet.
+/**
+ * G1实际使用的
+ * G1SATBCardTableLoggingModRefBS  继承 G1SATBCardTableModRefBS
+ * G1实际使用的是G1SATBCardTableLoggingModRefBS作为BarrierSet的实现类
+ **/
 class G1SATBCardTableLoggingModRefBS: public G1SATBCardTableModRefBS {
  private:
   DirtyCardQueueSet& _dcqs;

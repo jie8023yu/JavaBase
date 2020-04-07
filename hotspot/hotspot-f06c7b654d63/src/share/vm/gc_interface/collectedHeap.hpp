@@ -81,6 +81,7 @@ class GCHeapLog : public EventLogBase<GCMessage> {
 //     G1CollectedHeap
 //   ParallelScavengeHeap
 //
+//堆的抽象类
 class CollectedHeap : public CHeapObj<mtInternal> {
   friend class VMStructs;
   friend class IsGCActiveMark; // Block structured external access to _is_gc_active
@@ -99,7 +100,7 @@ class CollectedHeap : public CHeapObj<mtInternal> {
 
  protected:
   MemRegion _reserved;
-  BarrierSet* _barrier_set;
+  BarrierSet* _barrier_set;   //卡表的基类
   bool _is_gc_active;
   uint _n_par_threads;
 
@@ -194,7 +195,7 @@ class CollectedHeap : public CHeapObj<mtInternal> {
   static inline size_t filler_array_max_size() {
     return _filler_array_max_size;
   }
-
+  //定义了一个虚方法，虚方法kind会返回当前GC实现的类型
   virtual CollectedHeap::Name kind() const { return CollectedHeap::Abstract; }
 
   /**

@@ -122,7 +122,7 @@ class MarkRefsIntoClosure: public CMSOopsInGenClosure {
   }
 };
 
-class Par_MarkRefsIntoClosure: public CMSOopsInGenClosure {
+class  Par_MarkRefsIntoClosure: public CMSOopsInGenClosure {
  private:
   const MemRegion _span;
   CMSBitMap*      _bitMap;

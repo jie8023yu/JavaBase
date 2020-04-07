@@ -57,16 +57,28 @@ size_t CardTableModRefBS::compute_byte_map_size()
                                         "unitialized, check declaration order");
   assert(_page_size != 0, "unitialized, check declaration order");
   const size_t granularity = os::vm_allocation_granularity();
+  //_guard_index + 1相当于卡表项的数量，每个卡表项都是1字节，总的字节数就是_guard_index + 1
+  //将其向上取整获取实际的字节数
   return align_size_up(_guard_index + 1, MAX2(_page_size, granularity));
 }
 
-CardTableModRefBS::CardTableModRefBS(MemRegion whole_heap,
+/**
+ * MemRegion whole_heap 卡表对应的堆内存区域
+ * _guard_index 卡表中最后一个元素的索引
+ * _last_valid_index 卡表中最后一个有效元素的索引
+ * _page_size  映射_byte_map时的内存页大小
+ * _byte_map_size _byte_map的字节数，即元素个数
+ * 
+ * */
+CardTableModRefBS:: CardTableModRefBS(MemRegion whole_heap,
                                      int max_covered_regions):
   ModRefBarrierSet(max_covered_regions),
   _whole_heap(whole_heap),
+  //初始化_guard_index时调用了cards_required方法
   _guard_index(cards_required(whole_heap.word_size()) - 1),
   _last_valid_index(_guard_index - 1),
   _page_size(os::vm_page_size()),
+  //初始化_byte_map_size时调用了compute_byte_map_size()方法
   _byte_map_size(compute_byte_map_size())
 {
   _kind = BarrierSet::CardTableModRef;
@@ -79,14 +91,17 @@ CardTableModRefBS::CardTableModRefBS(MemRegion whole_heap,
   assert(card_size <= 512, "card_size must be less than 512"); // why?
 
   _covered   = new MemRegion[max_covered_regions];
+  //初始化commited,跟covered的数组元素个数一致
   _committed = new MemRegion[max_covered_regions];
   if (_covered == NULL || _committed == NULL) {
     vm_exit_during_initialization("couldn't alloc card table covered region set.");
   }
 
   _cur_covered_regions = 0;
+  //_page_size初始化的时候等于os::vm_page_size()
   const size_t rs_align = _page_size == (size_t) os::vm_page_size() ? 0 :
     MAX2(_page_size, (size_t) os::vm_allocation_granularity());
+  //为byte_map申请一段连续内存
   ReservedSpace heap_rs(_byte_map_size, rs_align, false);
 
   MemTracker::record_virtual_memory_type((address)heap_rs.base(), mtGC);
@@ -102,18 +117,20 @@ CardTableModRefBS::CardTableModRefBS(MemRegion whole_heap,
   // then add it to byte_map_base, i.e.
   //
   //   _byte_map = byte_map_base + (uintptr_t(low_bound) >> card_shift)
+  // 获取基地址，作为_byte_map数组的地址
   _byte_map = (jbyte*) heap_rs.base();
+  //计算从内存地址映射到字节数数组元素的基地址
   byte_map_base = _byte_map - (uintptr_t(low_bound) >> card_shift);
   assert(byte_for(low_bound) == &_byte_map[0], "Checking start of map");
   assert(byte_for(high_bound-1) <= &_byte_map[_last_valid_index], "Checking end of map");
-
+  //初始化guard_card
   jbyte* guard_card = &_byte_map[_guard_index];
   uintptr_t guard_page = align_size_down((uintptr_t)guard_card, _page_size);
   _guard_region = MemRegion((HeapWord*)guard_page, _page_size);
   os::commit_memory_or_exit((char*)guard_page, _page_size, _page_size,
                             !ExecMem, "card table last card");
   *guard_card = last_card;
-
+  //初始化4个数组
    _lowest_non_clean =
     NEW_C_HEAP_ARRAY(CardArr, max_covered_regions, mtGC);
   _lowest_non_clean_chunk_size =
@@ -127,6 +144,7 @@ CardTableModRefBS::CardTableModRefBS(MemRegion whole_heap,
       || _lowest_non_clean_base_chunk_index == NULL
       || _last_LNC_resizing_collection == NULL)
     vm_exit_during_initialization("couldn't allocate an LNC array.");
+  //数组元素初始化
   for (int i = 0; i < max_covered_regions; i++) {
     _lowest_non_clean[i] = NULL;
     _lowest_non_clean_chunk_size[i] = 0;
@@ -497,13 +515,15 @@ void CardTableModRefBS::non_clean_card_iterate_serial(MemRegion mr,
           (SharedHeap::heap()->n_par_threads() ==
           SharedHeap::heap()->workers()->active_workers()), "Mismatch");
   for (int i = 0; i < _cur_covered_regions; i++) {
+    //取两个MemRegion的交集
     MemRegion mri = mr.intersection(_covered[i]);
     if (mri.word_size() > 0) {
+      //计算mri这个内存地址的起始地址和结束地址对应的卡表的内存地址，这两个就确定了mri这个内存到底对应卡表的哪些范围
       jbyte* cur_entry = byte_for(mri.last());
       jbyte* limit = byte_for(mri.start());
       while (cur_entry >= limit) {
         jbyte* next_entry = cur_entry - 1;
-        if (*cur_entry != clean_card) {
+        if (*cur_entry != clean_card) {   
           size_t non_clean_cards = 1;
           // Should the next card be included in this range of dirty cards.
           while (next_entry >= limit && *next_entry != clean_card) {
@@ -514,9 +534,19 @@ void CardTableModRefBS::non_clean_card_iterate_serial(MemRegion mr,
           // The memory region may not be on a card boundary.  So that
           // objects beyond the end of the region are not processed, make
           // cur_cards precise with regard to the end of the memory region.
+          /*
+          将多个卡表项对应的内存地址合并成一个MemRegion，有几个dirty card ，就相当于内存地址从
+          addr_for(cur_entry) -> 获取这个卡表项对应的内存地址起始的位置，然后，每个卡表对应的内存大小是card_size_in_words,
+          有几个 就乘上 ，然后构建的MemRegion就是整个dirty card的内存区域
+          */
           MemRegion cur_cards(addr_for(cur_entry),
                               non_clean_cards * card_size_in_words);
+          /*需要注意的是，这个方法是可以指定查取某个MemRegion的dirty对应的地址，如果是整个堆，这一步就必要
+          但是，如果传入的MemRegion实际只是1.5个card_size_in_words的内存，此时找到的是完整的2个，就需要取两者的交集，
+          将这些脏了的地址返回出去。
+          */
           MemRegion dirty_region = cur_cards.intersection(mri);
+          //使用MemRegionClosure处理脏的卡表项对应的实际内存
           cl->do_MemRegion(dirty_region);
         }
         cur_entry = next_entry;
@@ -576,7 +606,9 @@ void CardTableModRefBS::dirty(MemRegion mr) {
 // iterates over dirty cards ranges in increasing address order.
 void CardTableModRefBS::dirty_card_iterate(MemRegion mr,
                                            MemRegionClosure* cl) {
+  //遍历当前使用的_covered
   for (int i = 0; i < _cur_covered_regions; i++) {
+    //取交集
     MemRegion mri = mr.intersection(_covered[i]);
     if (!mri.is_empty()) {
       jbyte *cur_entry, *next_entry, *limit;
@@ -618,6 +650,13 @@ MemRegion CardTableModRefBS::dirty_card_range_after_reset(MemRegion mr,
                dirty_cards++, next_entry++);
           MemRegion cur_cards(addr_for(cur_entry),
                               dirty_cards*card_size_in_words);
+
+          /*
+           * 这里写的重新设置卡表的值
+           * 当cur_entry是脏表时，如果连续几个是脏的，那dirty_cards就是几
+           * 如果默认只有这连续的一块是脏的，那么dirty_card就是1，cur_entryp[0] 表示的就是当前的指针，内存地址
+           * 如果有两个连续的，下一个卡表的位置就是cur_entry[1]
+           */
           if (reset) {
             for (size_t i = 0; i < dirty_cards; i++) {
               cur_entry[i] = reset_val;
