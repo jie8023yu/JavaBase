@@ -42,7 +42,13 @@ class KlassRemSet {
   KlassRemSet() : _accumulate_modified_oops(false) {}
   void set_accumulate_modified_oops(bool value) { _accumulate_modified_oops = value; }
   bool accumulate_modified_oops() { return _accumulate_modified_oops; }
+  /**
+   * 判断是否存在_accumulated_modified_oops属性为1的Klass
+   **/
   bool mod_union_is_clear();
+  /**
+   * 用于将所有Klass的 _accumulated_modified_oops属性置为0
+   **/
   void clear_mod_union();
 };
 /**

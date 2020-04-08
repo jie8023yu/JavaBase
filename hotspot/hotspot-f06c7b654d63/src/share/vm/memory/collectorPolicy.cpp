@@ -46,12 +46,14 @@
 #endif // INCLUDE_ALL_GCS
 
 // CollectorPolicy methods.
-
+/**
+ * CollectorPolicy的构造方法
+ **/
 CollectorPolicy::CollectorPolicy() :
     _space_alignment(0),
     _heap_alignment(0),
-    _initial_heap_byte_size(InitialHeapSize),
-    _max_heap_byte_size(MaxHeapSize),
+    _initial_heap_byte_size(InitialHeapSize),  //初始堆内存，单位字节
+    _max_heap_byte_size(MaxHeapSize),   //最大堆内存
     _min_heap_byte_size(Arguments::min_heap_size()),
     _max_heap_size_cmdline(false),
     _size_policy(NULL),
