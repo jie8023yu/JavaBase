@@ -1,7 +1,9 @@
 package com.com.wj.jvm.gc;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * CMS回收流程
@@ -40,11 +42,15 @@ import java.util.List;
  */
 public class CMS {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
 
 //        test();
+//        test2();
+//        test3();
 
-        test2();
+//        test4();
+
+        test8();
     }
 
     /**
@@ -56,12 +62,21 @@ public class CMS {
         System.out.println("1111");
         byte[] myAlloc2 = new byte[4 * size];
         System.out.println("2222");
-        byte[] myAlloc3 = new byte[4 * size];
+        byte[] myAlloc3 = new byte[1 * size];
         System.out.println("3333");
 //        Thread.sleep(10);
-        byte[] myAlloc4 = new byte[2 * size];
+        testT();
         Thread.sleep(1000);
         System.out.println("4444");
+        myAlloc3 = null;
+//        System.gc();
+        Thread.sleep(15000);
+    }
+
+    public static void testT() throws InterruptedException {
+        byte[] myAlloc4 = getM(5);
+        Thread.sleep(3000);
+        System.out.println("----------------------end");
     }
 
     /**
@@ -74,6 +89,7 @@ public class CMS {
      *
      * -XX:+CMSScavengeBeforeRemark
      *
+     *
      * (未验证通过啊)
      *
      * */
@@ -81,27 +97,167 @@ public class CMS {
 //        Thread.sleep(5000);
         int size = 1024 * 1024;
         List list = new ArrayList();
-        list.add(new byte[size]);
-
-
-        byte[] myAlloc1 = new byte[8 * size];
+//        list.add(new byte[size]);
 //        byte[] myAlloc2 = new byte[5 * size];
+//        list.add(myAlloc1);
 
+        list.add(getM(2));
+        Thread.sleep(3500);
 
-        list.add(myAlloc1);
-//        Thread.sleep(100);
-//        byte[] myAlloc3 = new byte[2 * size];
-//        byte[] myAlloc4 = new byte[2 * size];
-//        byte[] myAlloc5 = new byte[2 * size];
-//        Thread.sleep(500);
-//        System.out.println("test");
+        System.out.println("------phase1--------------");
+        byte[] myAlloc1 = new byte[2 * size];
+        byte[] myAlloc2 = new byte[2 * size];
+        byte[] myAlloc3 = new byte[2 * size];
+        Thread.sleep(5000);
+        list.add(getM(3));
+        System.out.println("------phase2--------------");
 
-
-        Thread.sleep(3000);
-        System.out.println("test");
-        byte[] myAlloc66 = new byte[2 * size];
-        Thread.sleep(10000);
+         Thread.sleep(2000);
+        Thread.sleep(15000);
     }
+
+
+    /**
+     * -Xms20m -Xmx20m -Xmn10m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:CMSMaxAbortablePrecleanTime=5000 -XX:CMSScheduleRemarkEdenSizeThreshold=1M
+     * @throws InterruptedException
+     */
+    public static void test3() throws InterruptedException {
+        byte[] b1 = getM(2);
+        byte[] b2 = getM(2);
+        byte[] b3 = getM(3);
+        System.out.println("minor gc");
+        byte[] b4 = getM(1);
+        TimeUnit.SECONDS.sleep(8);
+    }
+
+    public static byte[] getM(int size) {
+        byte[] btye = new byte[size * 1024 * 1024];
+        System.out.println("申请" + size + "内存");
+        return btye;
+    }
+
+    /**
+     * -Xms30m
+     * -Xmx30m
+     * -Xmn10m
+     * -XX:+UseConcMarkSweepGC
+     * -XX:+PrintGCDetails
+     * -XX:+PrintGCDateStamps
+     * -XX:CMSMaxAbortablePrecleanTime=5000
+     * -XX:CMSScheduleRemarkEdenSizeThreshold=2M
+     * -XX:CMSScheduleRemarkEdenPenetration=20
+     * -XX:+CMSScavengeBeforeRemark
+     * @throws Exception
+     */
+    public static void test4() throws Exception {
+
+        byte[] by1 = getM(10);
+//        byte[] by2 = new byte[2];
+//        byte[] by3 = getM(3);
+//        System.out.println("minor gc");
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println("直接扔10M");
+        byte[] by4 = getM(1);
+        TimeUnit.SECONDS.sleep(3);
+        byte[] by5 = getM(3);
+        TimeUnit.SECONDS.sleep(20);
+    }
+
+    public static void test5() throws Exception {
+        byte[] b1 = getM(2);
+        byte[] b2 = getM(2);
+        byte[] b3 = getM(3);
+        System.out.println("minor gc");
+        TimeUnit.SECONDS.sleep(2);
+        byte[] b4 = getM(1);
+        System.out.println("申请1M内存");
+        TimeUnit.SECONDS.sleep(3);
+        //byte[] b5 = getM(2);
+        System.out.println("------------phase1");
+        TimeUnit.SECONDS.sleep(10);
+        //byte[] b6 = getM(1);
+        System.out.println("--------------phase2");
+        byte[] b7 = getM(1);
+        TimeUnit.SECONDS.sleep(5);
+
+    }
+
+    public static void testt() {
+        WeakReference<byte[]> wf = new WeakReference<byte[]>(getM(2));
+    }
+
+
+
+    public static void test6() throws Exception {
+        byte[] b1 = getM(2);
+        byte[] b2 = getM(2);
+        byte[] b3 = getM(3);
+        System.out.println("minor gc");
+        TimeUnit.SECONDS.sleep(2);
+        byte[] b4 = getM(1);
+        System.out.println("申请1M内存");
+        TimeUnit.SECONDS.sleep(3);
+        //byte[] b5 = getM(2);
+        t();
+        System.out.println("------------phase1");
+        TimeUnit.SECONDS.sleep(10);
+        //byte[] b6 = getM(1);
+        System.out.println("--------------phase2");
+        byte[] b7 = getM(1);
+        TimeUnit.SECONDS.sleep(10);
+    }
+
+    private static void t() throws Exception {
+        //byte[] b5 = getM(2);
+        WeakReference<byte[]> wf = new WeakReference<byte[]>(getM(6));
+        System.out.println("----------------t");
+        wf = null;
+    }
+
+    /**
+     * 测试CMS垃圾回收触发
+     * -Xmn10M -Xms50M -Xmx50M
+     * @throws Exception
+     *
+     *
+     * 经过测试发现，指定-XX:CMSInitiatingOccupancyFraction这个值只要超过了50%后，基本上没用了，一旦使用超过50%，就会发生CMS
+     * 默认值测试过程：发现也是一样的，不超过50%不会出现CMS，超过这个值后CMS就开启了
+     * 看有个人的博客上写明：触发CMS的老年代比例大小的计算方法：
+     * 通过java -XX:+PrintFlagsFinal -version
+     * 首先查看CMSInitiatingOccupancyFraction这个值 如果大于0 ，直接%的概率
+     * 如果小于0， 在JDK1.8的版本中，这个值是-1，就会走下面的计算方式：
+     * io就是CMSInitiatingOccupancyFraction这个值
+     * tr就是MinHeapFreeRatio这个值，JDK1.8默认是40
+     * assert(io <= 100 && tr <= 100, "Check the arguments");
+     *       if (io >= 0) {
+     *         _initiating_occupancy = (double)io / 100.0;
+     *       } else {
+     *         _initiating_occupancy = ((100 - MinHeapFreeRatio) +
+     *                                  (double)(tr * MinHeapFreeRatio) / 100.0)
+     *                                 / 100.0;
+     *       }
+     *通过上述两个值，计算出的_initiating_occupancy 就是 （60 + 3200 / 100） / 100 = 92
+     * 实际验证并不是这样，不明白为什么
+     * 在centos上验证也是这样，采用的jdk版本都是1.8
+     */
+    public static void test8() throws Exception {
+
+//        byte[] b1 = new byte[1024 * 512 * 11];
+        List list = new ArrayList();
+        byte[] b2 = getM(10);
+        list.add(getM(5));
+        list.add(getM(10));
+        list.add(getM(2));
+//        getM();
+//        byte[] b3 = getM(20);
+
+        list.add(new byte[28 * 1024]);
+        list.add(new byte[27648 - 139 - 1024 * 20]);
+        list.add(getM(2));
+
+        TimeUnit.SECONDS.sleep(5);
+    }
+
 
 
 }
