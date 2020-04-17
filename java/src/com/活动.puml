@@ -1,0 +1,32 @@
+@startuml
+通用活动校验逻辑 -> 判断是否生效: check
+判断是否生效 --> 通用活动校验逻辑: check failed
+
+判断是否生效 -> 判断是否失效: next check
+判断是否失效 --> 通用活动校验逻辑: check failed
+
+判断是否失效 -> 判断useType: next check
+判断useType --> 通用活动校验逻辑: check failed
+
+判断useType -> 校验黑名单: next check
+校验黑名单 --> 通用活动校验逻辑: check failed
+
+
+校验黑名单 -> 校验白名单: next check
+校验白名单 --> 通用活动校验逻辑: check failed
+
+校验白名单 -> 校验档次: next check
+
+
+校验档次 -> 渠道信息校验: next check
+渠道信息校验 --> 校验档次 : check failed
+校验档次 --> 通用活动校验逻辑: check failed
+
+渠道信息校验 -> 地市校验: next check
+地市校验 --> 校验档次: check failed
+校验档次 --> 通用活动校验逻辑: check failed
+
+地市校验 -> 校验完成
+校验完成 --> 通用活动校验逻辑: check success
+
+@enduml
