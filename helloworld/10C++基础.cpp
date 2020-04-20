@@ -706,7 +706,7 @@ class Cat {
                 free(cname);
                 cname = NULL;
             }
-             cout << "~Cat()" << endl;
+            cout << "~Cat()" << endl;
         }
         //拷贝构造，系统默认提供一个，自己提供一个，进行深拷贝
         Cat(const Cat& cat) {
@@ -720,9 +720,79 @@ void test27() {
     Cat c2(c1);  //拷贝构造,浅拷贝，在析构的时候会有问题
     cout << "cname:" << c2.cname << endl;
 }
+class Bird {
+    public :
+
+        Bird() {
+
+        }
+        Bird(int a,int b,int c) {
+            ca = a;
+            cb = b;
+            cc = c;
+        }
+
+        //利用初始化列表来初始化 构造函数: 属性(参数)，属性(参数)
+        Bird(int a,int b) : ca(a),cb(b) {
+        }
+
+        int ca;
+        int cb;
+        int cc;
+};
+/**
+ * 初始化列表
+ **/
+void test28() {
+    Bird bird(10,20,30);
+    cout << bird.ca << bird.cb << bird.cc << endl;
+    Bird bird2(20,40);
+     cout << bird2.ca << "," << bird2.cb << "," << bird2.cc << endl;
+
+}
+/**
+ * explicit关键字使用
+ **/
+class MyString {
+    public:
+        char * str;
+        int size;
+        explicit MyString(char * s) : str(s){
+
+        }
+
+        MyString(int i) {
+            size = i;
+        }
+
+    
+
+};
+void test29() {
+    MyString my1("test");
+    //如果构造函数不加explict关键字，下面这样的写法是可以的,加了就不能这样写了
+    // MyString my2 = "hello";
+    // cout << my2.str << endl;
+    MyString my3 = 2;
+    cout << my3.str << "," << my3.size << endl;
+}
 
 
+/**
+ *C语言的动态分配内存太麻烦
+ C++ 扩展，了 new  delete
+ * */
+void test30() {
+    Bird *bird2 = (Bird*)malloc(sizeof(Bird));
+    if (bird2 == NULL) {
+        //申请失败了
+    }
 
+    printf("%p\n",bird2);
+    printf("%d\n",(*bird2).ca);
+    Bird * bird = new Bird();
+
+}
 
 
 
@@ -769,7 +839,14 @@ int main() {
     // test25();
 
 
-    test27();
+    // test27();
+
+    // test28();
+
+    // test29();
+
+    test30();
+    
 
 
     return 0;
