@@ -1,0 +1,1 @@
+const int cc = 10;
