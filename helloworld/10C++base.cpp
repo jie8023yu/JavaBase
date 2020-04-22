@@ -986,14 +986,214 @@ class Wolf {
     public:
         int age;
         void show() {
-            cout << age << endl;
+            cout << "age" << endl;
         }
 
-        void showAge
+        void showAge() {
+            cout << age << endl;  // age -> this->age
+
+        }
 };
 void test38() {
     Wolf *p = NULL;
-    (*p).show;
+    (*p).show();   //空指针可以访问不访问成员属性的成员函数
+    p -> showAge();  //不可以访问，相当于访问对象中的属性,实际是通过this指针来访问的，this.age，此时的this是一个NULL
+}
+
+/**
+ * const 修饰
+ */
+class Mouse {
+    public:
+        int age;
+        mutable int sex;
+        Mouse() {
+
+        }
+        Mouse(int age) {
+            //this永远指向自身的对象， Mouse * const this
+            this->age = age;
+        }
+
+        //全局函数变为友元函数(声明即可)
+        void visit(Mouse * mouse);
+
+        void test() {}
+        
+        //常函数就不能修改this指针指向的值，如果还是想修改，就需要在属性上加关键字
+        void showInfo() const { 
+              //常函数
+            //   this->age = 100; 
+            this -> sex = 1;
+        }
+};
+
+void test39() {
+    //常对象
+    const Mouse m1;
+    // m1.age = 100;  //不能再修改了
+    // m1.test();    //常对象不能访问普通函数，只能访问常函数
+}
+/**
+ * 友元函数
+ * 目的，访问成员私有属性
+ **/
+
+//全局函数
+void visit(Mouse * mouse) {
+    cout << mouse -> age << endl;
+}
+
+void test40() {
+    Mouse m;
+    visit(&m);
+}
+
+//模板 (下面的实现不写在这里，写到Apple.cpp中)
+/*此时如果引入头文件，会发现编译报错，具体实现写在了Apple.cpp中
+    如果将引入的改为10C_Apple.cpp，进行编译，就发现正常了,能正常运行
+*/
+#include "10C_2.h"  
+// #include "10C_Apple.cpp"  //一般没有这样写的，一般模板定义和实现写在一起
+/* template<class t1,class t2>
+Apple<t1,t2>::Apple(t1 age,t2 color) {
+    this -> age = age;
+    this -> color = color;
+}
+template<class t1,class t2>
+void Apple<t1,t2>::showColor(){
+    cout << this -> color << endl;
+} */
+
+void test41() {
+    Apple<int,int> apple(10,20);
+    apple.showColor();
+}
+
+/**
+ * 自定义数组测试
+ **/
+#include "MyArray.cpp"
+void test42() {
+    cout << "define array start------------------------>" << endl;
+    MyArray my;
+    for (int i = 0; i < 10; i++) {
+        my.push(i * 10);
+    }
+    for (int i = 0; i < 10;i++) {
+        cout << my.getData(i) << "," << endl;
+    }
+    cout << endl;
+    //通过拷贝函数创建一个对象
+    MyArray my2(my);
+    for (int i = 0; i < 10;i++) {
+        cout << my2.getData(i) << "," << endl;
+    }
+    my2.push(300);
+    cout << my2.getData(11) << endl;
+}
+
+void test43() {
+    MyArray* my = new MyArray();
+    // my -> getData();
+    MyArray my2(*my);  //不同写法
+
+    //堆区创建数组
+    MyArray* m1 = new MyArray();
+    //new方式指定拷贝方式创建
+    MyArray* m2 = new MyArray(*m1);
+
+    MyArray m3 = *m1;  //返回本体
+
+    // MyArray * m4 = m1;  //这是声明一个指针，指向的地址与m1的地址相同，不会使用拷贝构造
+}
+
+/**
+ * 运算符重载
+ */
+class Orange {
+    int age;
+    string color;
+
+    public:
+        Orange();
+        Orange(int age,string color);
+
+        //友元函数()
+        friend void visit(Orange orange);
+
+        // Orange operator+(Orange orange);
+
+        int getAge() {
+            return age;
+        }
+        string getColor() {
+            return color;
+        }
+
+        void setAge(int age) {
+            this -> age = age;
+        }
+
+        void setColor(string color) {
+            this -> color = color;
+        }
+
+
+};
+//实现
+Orange::Orange() {}
+Orange::Orange(int age,string color) : age(age),color(color) {}
+
+/* Orange Orange::operator+(Orange orange) {
+    Orange tmp;
+    tmp.age = this -> age + orange.age;
+    tmp.color = this -> color + orange.color;
+    return tmp;
+} */
+
+
+//全局函数
+Orange operator+(Orange o1,Orange o2) {
+    Orange tmp;
+    tmp.setAge(o1.getAge() +o2.getAge());
+    tmp.setColor(o1.getColor() +  o2.getColor());
+    return tmp;
+}
+
+void visit(Orange orange) {
+    cout << "orange.age is " << orange.age << ",orange.color is " << orange.color << endl;
+}
+
+//+号重载
+void test44() {
+    Orange o1(10,"red");
+    Orange o2(1,"sky");
+    // Orange o3 = o1 + o2;  //编译期编译不通过
+    //解决方式1：成员函数提供方法operator+ 方法 ，可以调用，也可以直接通过 +
+    // Orange o3 = o1.operator+(o2);
+    /* Orange o3 = o1 + o2;
+    visit(o1);
+    visit(o2);
+    visit(o3); */
+    //解决方式2：定义全局函数
+    // Orange o3 = operator+(o1,o2);
+    Orange o3 = o1 + o2;
+    visit(o1);
+    visit(o2);
+    visit(o3);
+
+
+}
+//<<重载
+ostream& operator<<(ostream& o,Orange o2) {
+    o << "orange.age is " << o2.getAge() << ",orange.color is " << o2.getColor();
+}
+void test45() {
+    Orange o1(20,"red");
+    // operator<<(std::cout,o1);
+
+    cout << o1 << endl;
 }
 
 
@@ -1063,10 +1263,18 @@ int main() {
 
     // test37();
 
-    test38();
-    
-    
+    // test38();
 
+
+    // test40();
+
+    // test41();
+
+    // test42();
+
+    // test44();
+
+    test45();
 
     return 0;
 }
