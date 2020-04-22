@@ -724,7 +724,7 @@ class Bird {
     public :
 
         Bird() {
-
+            cout << "bird()" << endl;
         }
         Bird(int a,int b,int c) {
             ca = a;
@@ -739,6 +739,10 @@ class Bird {
         int ca;
         int cb;
         int cc;
+
+        ~Bird() {
+            cout << "~Bird()" << endl;
+        }
 };
 /**
  * 初始化列表
@@ -791,7 +795,179 @@ void test30() {
     printf("%p\n",bird2);
     printf("%d\n",(*bird2).ca);
     Bird * bird = new Bird();
+}
 
+void test31() {
+    // cout << "stack alloc" << endl;
+    // Bird bird;  //栈区申请
+    cout << "heap alloc" << endl;
+    Bird * bird2 = new Bird;
+
+    //所有new出来的对象，都会返回该类型的指针
+    //malloc返回的是void*指针，还要强转
+    //malloc不会调用构造，new会调用
+    //new只是运算符，malloc是系统函数
+
+    //释放堆区
+    // delete(bird2);
+    delete bird2;
+
+    //如果用void*万能指针来接收了，将无法释放内存
+}
+
+void test32() {
+    //通过new开辟数组，一定会调用默认构造函数，所以一定要提供默认构造
+    Bird* pArray = new Bird[10];
+
+    //栈上开辟
+    Bird array2[2] = {Bird(1,2,3),Bird(1,2,3)}; //可以指定有参构造
+
+    //释放数组(必须这样写)
+    delete [] pArray;
+}
+
+/**
+ * 静态成员变量
+ * 编译阶段分配内幕（如何编译阶段分配内存？？？？）
+ * 属于某个类，所有对象共享
+ **/
+
+class Teacher {
+    public:
+        static int age; //静态成员变量，在类内声明，类外初始化，不能直接声明的时候初始化
+        //静态成员函数 也是有权限的
+        static void func() {
+
+            cout << "static void func()" << endl;
+        }
+    private:
+        static int other; //静态成员变量，也是有权限的，在类外不能访问，能在类外初始化，编译器认为还是在类内
+};
+//初始化
+int Teacher::age = 10;
+int Teacher::other = 20;
+
+
+
+void test33() {
+    //通过对象访问属性
+    Teacher t1;
+    t1.age = 20;
+
+    Teacher t2;
+    t2.age = 30;
+
+    cout << "t1 = " << t1.age << endl;
+    cout << "t2 = " << t2.age << endl;
+    //共享数据
+
+    //通过类名访问属性(通常)
+    cout << "Teacher::age = " << Teacher::age << endl;
+
+    //静态成员函数调用
+    Teacher::func();
+}
+
+
+/**
+ * 单例模式
+ **/
+class ChairMan {
+    private:
+        ChairMan(){
+            cout << "ChairMan()" << endl;
+        }
+    // public:
+        static  ChairMan* singleton;
+
+        //拷贝构造，私有化
+        ChairMan(const ChairMan& ch) {
+        }
+    public:
+        static ChairMan * getInstance() {
+            return singleton;
+        }
+};
+
+ChairMan * ChairMan::singleton = new ChairMan();
+void test34() {
+    // ChairMan * singleton = ChairMan::singleton;
+
+    // ChairMan * singleton2 = ChairMan::singleton;
+
+    ChairMan * singleton = ChairMan::getInstance();
+    ChairMan * singleton2 = ChairMan::getInstance();
+    printf("%p\n",singleton);
+    printf("%p\n",singleton2);
+
+    // ChairMan::singleton = NULL;    //防止被改
+    // printf("%p\n",singleton);
+
+    //通过拷贝函数创建 (私有拷贝函数)
+    // ChairMan * s3 = new ChairMan(*singleton);
+
+    // printf("%p\n",s3);
+
+}
+#include<string>
+class Printer {
+
+    private:
+        Printer() {}
+        Printer(const Printer& p) {}
+        static Printer* instance;
+    public:
+        static Printer* getInstance() {
+            return instance;
+        }
+
+        void print(string text) {
+            cout << text << endl;
+        }
+};
+Printer* Printer::instance = new Printer;
+void test35() {
+    Printer* p1 = Printer::getInstance();
+    p1->print("test");
+    p1->print("test2");
+    p1->print("test3");
+}
+
+/**
+ * C++虽然将属性和行为都封装在了一个类中，实际，类的非内联成员函数和成员属性都是分开存储的
+ * 
+ */
+class Tigger {
+    public:
+        int m  = 0;
+        void func() {} //非静态函数
+        static int b;  //静态成员也不属于对象
+        static void func2() {} //静态函数也不属于对象
+
+        double m2;    // 8个字节，内存字节会对齐
+
+        Tigger& plus(int a) {
+            this -> m = this -> m + a;
+            return *this;  //*this就是代表当前对象
+        }
+};
+void test36() {
+    cout << sizeof(Tigger) << endl;  //空对象的大小是1，每个对象实例，都有独一无二的地址，char维护这个地址
+}
+
+/**
+ * this指针
+ */
+void test37() {
+    //this指针指向被调用的成员函数所属对象
+    Tigger t1;
+    t1.func();  //编译器会加上一个this指针，Person * this
+    Tigger t2;
+    t2.func();
+
+    t2.plus(10).plus(10).plus(10);  //链式编程
+
+    cout << t2.m << endl;
 }
 
 
@@ -845,7 +1021,23 @@ int main() {
 
     // test29();
 
-    test30();
+    // test30();
+
+    // test31();
+
+    // test32();
+
+    // test33();
+
+    // test34();
+
+    // test35();
+
+    // test36();
+
+
+    test37();
+    
     
 
 
