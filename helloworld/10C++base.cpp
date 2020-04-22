@@ -950,6 +950,14 @@ class Tigger {
             this -> m = this -> m + a;
             return *this;  //*this就是代表当前对象
         }
+
+        Tigger() {
+
+        }
+
+        Tigger(const Tigger& t) {
+            cout << "Tigger(const Tigger& t)" << endl;;
+        }
 };
 void test36() {
     cout << sizeof(Tigger) << endl;  //空对象的大小是1，每个对象实例，都有独一无二的地址，char维护这个地址
@@ -970,6 +978,23 @@ void test37() {
     cout << t2.m << endl;
 }
 
+/**
+ * 空指针
+ **/
+class Wolf {
+
+    public:
+        int age;
+        void show() {
+            cout << age << endl;
+        }
+
+        void showAge
+};
+void test38() {
+    Wolf *p = NULL;
+    (*p).show;
+}
 
 
 
@@ -1036,7 +1061,9 @@ int main() {
     // test36();
 
 
-    test37();
+    // test37();
+
+    test38();
     
     
 
