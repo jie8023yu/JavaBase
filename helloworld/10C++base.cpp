@@ -1188,12 +1188,69 @@ void test44() {
 //<<重载
 ostream& operator<<(ostream& o,Orange o2) {
     o << "orange.age is " << o2.getAge() << ",orange.color is " << o2.getColor();
+    return cout;   //注意此处返回
 }
 void test45() {
     Orange o1(20,"red");
     // operator<<(std::cout,o1);
 
     cout << o1 << endl;
+}
+/**
+ * 指针运算符重载
+ * 智能指针，托管自定义的对象，让对象自动释放内存
+ **/
+class Airplane {
+public:
+    int age;
+    string name;
+    double price;
+
+    void showName() {
+        cout << this -> name << endl;
+    }
+
+    Airplane(int age) {
+        this -> age = age;
+    }
+
+    ~Airplane() {
+        cout << "~Airplane()" << endl;
+    }
+
+};
+
+//智能指针
+class smartPointer {
+    private:
+        Airplane * aP;
+    public:
+        smartPointer(Airplane * aP) {
+            this -> aP = aP;
+        }
+
+        ~smartPointer() {
+            if (aP != NULL) {
+                delete aP;
+                aP = NULL;
+            }
+        }
+
+        //重载-> 让可以sP->showName()
+        Airplane * operator->() {
+            return aP;
+        }
+};
+
+
+void test46() {
+    // Airplane a(10);  //栈上分配
+    Airplane* a2 = new Airplane(20);
+    // delete a2;
+    a2 -> name = "test";
+    // a2 -> showName();
+    smartPointer sP(a2);   //栈上分配，执行完就回收了
+    sP -> showName();    //正常应该这样写 sP->->showName()  编译器优化了
 }
 
 
@@ -1274,7 +1331,9 @@ int main() {
 
     // test44();
 
-    test45();
+    // test45();
+
+    test46();
 
     return 0;
 }
