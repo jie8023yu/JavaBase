@@ -1539,7 +1539,7 @@ class Cat1 : public An3 {
         void speak() {
             cout << "Cat1 speak()" << endl;
         }
-        virtual void s2() {
+        void s2() {
             cout << "cat1 s2()" << endl;
         }
 };
@@ -1565,13 +1565,18 @@ void test59() {
     再 转一次指针，取值，获取到的就是要调用的虚函数
     虚函数指针：void(*)()
     */
+   cout << sizeof(long *) << endl;
     ((void(*)())*(int *)*(int *)an)();
     int *p = (int *)*(int *)an;
-    p++;
     // printf("%p\n",p);
     // p = (p + 1);
     // printf("%p\n",p);
-    ((void(*)())*p)();
+    ((void(*)())*(p+2))();
+
+    long long *p2 = (long long *)*(long long *)an;
+    ((void(*)())(*p2))();
+    ((void(*)())(*(p2+1)))();
+    // ((void(*)())(*(int *)*(int *)an+2))();
     //想调用s2
     // printf("%p\n",(int *)*(int *)an);
     // printf("%d\n",*(int *)*(int *)an);
@@ -1583,6 +1588,215 @@ void test59() {
 
 }
 //visual stido 提供提供的 命令 cl /d1 reportSingleClassLayoutAn3 test1.cpp 主要：直接查看可能会有问题，查看test1.cpp中的内容
+/**
+ * 函数模板
+ */
+template <class T>
+void swap_2(T& a,T& b) {
+    T temp = a;
+    a = b;
+    b = temp;
+    cout << a << "," << b << endl;
+}
+//template<typename T> 等价于 template <class T>
+template<typename T>
+void swap_3(T& a,T& b) {
+    T temp = a;
+    a = b;
+    b = temp;
+    cout << a << "," << b << endl;
+}
+
+void test60() {
+    int a = 1;
+    int b = 2;
+    //推导
+    swap_2(a,b);
+    double d = 1.1;
+    double e = 2.2;
+    swap_2(d,e);
+
+    char c1 = 'a';
+    char c2 = 'b';
+    swap_2(c1,c2);
+
+    //显示指定
+    swap_3<int>(a,b);
+}
+/**
+ * 普通函数和模板函数区别
+ * 1.普通函数调用可以进行隐式转换，模板函数不行
+ **/
+template<typename T>
+void addPlus(T& a,T& b) {
+    T temp = a + b;
+    cout << temp << endl;
+}
+void addPlus2(int a,int b) {
+    int temp = a + b;
+    cout << temp << endl;
+}
+/**
+ * 调用规则：
+ *  模板函数可以重载，可以同时定义同名的模板函数和普通函数
+ *  例如：
+ *  template<typename T>
+ *  void test(T& a,T& b) {
+ *      T temp = a + b;
+ *  }
+ *  void test(int a,int b) {
+ *      int temp = a + b;
+ *  }
+ *  此时如果直接调用
+ *  int a = 1;
+ *  int b = 2;
+ *  test(a,b);  会直接调用普通函数
+ *  如果只声明普通函数，没哟实现，会编译报错
+ *  如果有更好的匹配规则匹配到模板函数，会调用模板函数，例如：
+ *  char c = 'c';
+ *  char d = 'd';
+ *  test(c,d);   //此时，会优先调用模板函数，因为普通函数需要隐式转换
+ **/
+void test61() {
+    int a = 10;
+    char c = 'a';
+    // addPlus(a,c);  //不能这样写
+    addPlus2(a,c);
+}
+//模板函数的局限性，和解决方法
+template<class T>
+bool equals(T &a,T &b) {
+    if (a == b) return true;
+    return false;
+}
+class Person_62 {
+    public:
+        int age;
+        Person_62(int age) {
+            this -> age = age;
+        }
+};
+//具体化自定义类型来解决，如果没有这个，编译不会通过
+template<> bool equals<Person_62>(Person_62 &a,Person_62 &b) {
+    if (a.age = b.age) return true;
+    return false;
+}
+void test62() {
+    int a = 1;
+    int b = 2;
+    cout << equals<int>(a,b) << endl;
+    cout << equals<int>(a,a) << endl;
+    Person_62 p1(10);
+    Person_62 p2(10);
+    cout << equals(p1,p2) << endl;
+}
+//类模板
+template <class T1,class T2>
+class Person_63 {
+    public:
+        T1 age;
+        T2 name;
+        Person_63(T1 age,T2 name) {
+            this -> age = age;
+            this -> name = name;
+        }
+
+        void showPerson() {
+            cout << name << "," << age << endl;
+        }
+};
+
+void test63() {
+    //自动类型推导，类模板，不支持
+
+    //显示指定
+    Person_63<int,string> p1(10,"test");
+    cout << p1.name << "," << p1.age << endl;
+
+}
+//成员函数一开始不会创建，运行时才创建
+//类模板做函数参数
+void func_64(Person_63<int,string> p) {  //1.指定类型
+    p.showPerson();
+}
+template<class T1,class T2>
+void func_64_2(Person_63<T1,T2> p) {  //2.参数模板化
+    //查看类型
+    cout << typeid(T1).name() << endl << typeid(T2).name() << endl;
+    p.showPerson();
+}
+//3.整体类型化
+template<class T>
+void func_64_3(T &t) {
+    t.showPerson();
+}
+void test64() {
+    Person_63<int,string> p(10,"test");
+    func_64(p);
+    func_64_2(p);
+    func_64_3(p);
+}
+//类模板继承的问题
+template <typename T>
+class Base_65 {
+    public:
+        T age;
+        Base_65(T age);
+};
+//子类继承base，必须告诉base中T的类型，否则无法分配内存
+class Sub_65 : public Base_65<int>  {
+
+};
+//还可以这样写
+template <typename T1,typename T2>
+class Sub_65_2 : public Base_65<T2> {
+    public:
+        T1 i2;
+};
+// 模板类内外成员函数实现
+template<typename T>
+Base_65<T>::Base_65(T age) {
+    this -> age = age;
+}
+//模板 (下面的实现不写在这里，写到Apple.cpp中)
+/*此时如果引入头文件，会发现编译报错，具体实现写在了Apple.cpp中
+    如果将引入的改为10C_Apple.cpp，进行编译，就发现正常了,能正常运行
+    一般没有这样写的，都是写在一起
+*/
+// #include "person.h"
+// void test66() {
+//     Person_66<int,string> p(1,"july");
+//     // cout << p.age << p.name << endl;
+// }
+
+
+//异常
+void test67() {
+
+}
+
+
+/*函数对象
+
+*/
+class MyPrint {
+    public:
+        
+        void operator()(int num) {
+                cout << num << endl;
+        }
+};
+
+void myPrint2(int num) {
+    cout << num << endl;
+}
+
+void test68() {
+    MyPrint my;
+    my(11);
+    myPrint2(11);
+    MyPrint()(100);
+}
 
 
 //函数入口地址
@@ -1661,8 +1875,19 @@ int main() {
 
     // test45();
 
-    test59();
+    // test59();
 
+    // test60();
+
+    // test62();
+
+    // test63();
+
+    // test64();
+
+    // test66();
+
+    test68();
 
 
     return 0;
