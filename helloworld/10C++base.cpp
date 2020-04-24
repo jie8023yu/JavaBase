@@ -1219,7 +1219,6 @@ public:
     }
 
 };
-
 //智能指针
 class smartPointer {
     private:
@@ -1253,9 +1252,144 @@ void test46() {
     sP -> showName();    //正常应该这样写 sP->->showName()  编译器优化了
 }
 
+/**
+ *对象创建，会默认提供一个构造，析构，拷贝，
+ 还有一个operator =赋值运算符函数（进行简单的值传递）
+
+ * */
+class Banana {
+    public:
+        int a;
+        Banana(int a) {
+            this -> a = a;
+        }
+};
+
+class Banana2 {
+    public:
+        char * name;
+        Banana2(char * name) {
+            // this -> name = name;
+            this-> name = new char(strlen(name) + 1);
+            strcpy(this->name,name);
+        }
+
+        ~Banana2() {
+            cout << "~Banana2()" << endl;
+            if (name != NULL) {
+                delete[] name;
+                name = NULL;
+            }
+        }
+
+        void operator=(const Banana2& b) {
+            if (this -> name != NULL) {
+                delete[] this -> name;
+                this -> name = NULL;
+            }
+            this -> name = new char(strlen(b.name) + 1);
+            strcpy(this -> name,b.name);
+        }
+};
+
+//赋值运算符重载
+void test50() {
+    // Banana b1(10);
+    // Banana b2(0);
+    // b2 = b1;
+    // cout << b2.a << endl;
+
+    Banana2 b21("test1");
+    Banana2 b22("abcd");
+    b22 = b21;
+
+    cout << b22.name << endl;
+}
 
 
 
+/**
+ * 继承
+ *
+ * 基类（父类）
+ * 派生类（子类）
+ *
+ * 语法：class 子类 :父类
+ * 另一种：继承权限
+ *  class 子类:public 父类
+ *  class 子类:private 父类
+ *  class 子类:protected 父类
+ */
+class Parent {
+    public :
+        int age;
+    private:
+        int p1;
+    protected:
+        int p2;
+};
+class Sub:Parent {
+
+};
+//继承方式
+class Sub2 : public Parent {
+
+    public:
+        void func() {
+            cout << age << endl;
+            // cout << p1 << endl;    //基类中私有的属性，不可以继承
+            cout << p2 << endl;       //基类中保护的属性，可以继承
+        }
+};
+class Sub3 : protected Parent {
+    public:
+        void func() {
+            cout << age << endl;       //基类中的公有的属性，可以继承，是protected
+            // cout << p1 << endl;    //基类中私有的属性，不可以继承
+            cout << p2 << endl;       //基类中保护的属性，可以继承，是protected
+        }
+};
+class Sub4 : private Parent {
+    public:
+        void func() {
+            cout << age << endl;       //基类中保护的属性，可以继承，是private
+            // cout << p1 << endl;    //基类中私有的属性，不可以继承
+            cout << p2 << endl;       //基类中保护的属性，可以继承，是private
+        }
+};
+//继承中的对象模型
+void test51() {
+    //不能访问私有属性，但是私有属性还是被继承下来了，只是编译器不允许你访问
+    cout << sizeof(Sub2) << endl;
+}
+
+//继承中的构造和析构
+class Par2 {
+    public:
+        Par2() {
+            cout << "Para2()" << endl;
+        }
+        ~Par2() {
+            cout << "~Para2()" << endl;
+        }
+
+};
+
+class Sub_1 : Par2 {
+    public:
+        Sub_1() {
+            cout << "Sub_1()" << endl;
+        }
+        ~Sub_1() {
+            cout << "~Sub_1()" << endl;
+        }
+};
+
+void test52() {
+    //会先构造父类，然后构造自己，然后会先析构自己，再析构父类
+    Sub_1 s1;
+
+}
 
 /**
  * 继承中的同名处理
@@ -1297,7 +1431,7 @@ void test55() {
     BSub o;
     cout << o.age << endl;  //打印出BSub的age
     //如果想访问父类中的age，怎么访问  对象.父类::属性 来访问
-    cout << o.Base::age << endl; 
+    cout << o.Base::age << endl;
     o.func();
     //如何调用父类
     o.Base::func();
@@ -1327,7 +1461,7 @@ class son : public Base1,public Base2 {
 };
 
 void test57() {
-    cout << sizeof(son) << endl;  
+    cout << sizeof(son) << endl;
     son s;
     // s.age;  //二义性问题
     s.Base1::age;  //这样访问
@@ -1336,7 +1470,7 @@ void test57() {
 /*菱形继承
 比如animal
     sheep 继承 animal
-    camel 继承 animal 
+    camel 继承 animal
     alpaca 继承 sheep,camel
     此时，羊驼同时继承了sheep和camel从animal继承来的属性和方法，相当于继承了两份，实际只需要一份，造成空间浪费
     并且，当访问同一个属性或者函数时，会出现二义性
@@ -1417,7 +1551,7 @@ void test59() {
     speak(cat);  //早绑定，编译时就绑定好函数地址了
     //希望是cat在speak，就要使用虚函数
     /*
-     *父类的引用或者指针，指向了子类对象 
+     *父类的引用或者指针，指向了子类对象
      */
 
     //原理剖析
@@ -1432,9 +1566,19 @@ void test59() {
     虚函数指针：void(*)()
     */
     ((void(*)())*(int *)*(int *)an)();
+    int *p = (int *)*(int *)an;
+    p++;
+    // printf("%p\n",p);
+    // p = (p + 1);
+    // printf("%p\n",p);
+    ((void(*)())*p)();
     //想调用s2
-    int * p = (int *)*(int *)an;
-    ((void(*)()))(*(p+1))();
+    // printf("%p\n",(int *)*(int *)an);
+    // printf("%d\n",*(int *)*(int *)an);
+    // int * p = (int *)*(int *)an;
+    // printf("%p\n",p);
+    // p++;
+    // printf("%p\n",p+1);
 
 
 }
@@ -1517,17 +1661,10 @@ int main() {
 
     // test45();
 
-    // test46();
-
-    // test55();
-
-    // test56();
-
-    // test57();
-
-    // test58();
-
     test59();
+
+
+
     return 0;
 }
 
