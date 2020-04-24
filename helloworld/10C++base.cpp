@@ -1257,6 +1257,190 @@ void test46() {
 
 
 
+/**
+ * 继承中的同名处理
+ */
+class Base {
+    public:
+        int age;
+        //声明
+        static int sage;
+        Base() {
+            age = 100;
+        }
+        void func() {
+            cout << "base func()" << endl;
+        }
+
+        static void sfunc() {
+            cout << "base static sfunc()" << endl;
+        }
+};
+//必须初始化才能用
+int Base::sage = 10;
+class BSub : public Base {
+    public:
+        int age;
+        BSub() {
+            age = 200;
+        }
+        void func() {
+            cout << "BSub func()" << endl;
+        }
+
+        static void sfunc() {
+            cout << "BSub sfunc()" << endl;
+        }
+};
+
+void test55() {
+    BSub o;
+    cout << o.age << endl;  //打印出BSub的age
+    //如果想访问父类中的age，怎么访问  对象.父类::属性 来访问
+    cout << o.Base::age << endl; 
+    o.func();
+    //如何调用父类
+    o.Base::func();
+}
+//继承中的静态成员处理
+void test56() {
+    cout << BSub::sage << endl;   //父类静态属性子类继承
+    BSub::sfunc();
+    //当子类也有static sfunc()方法时
+    //子类想调用父类的sfunc方法
+    BSub::Base::sfunc();
+}
+//多继承
+class Base1 {
+    public:
+        int age;
+};
+class Base2 {
+    public:
+        int age;
+        int length;
+
+};
+//多继承，很容易引发二义性
+class son : public Base1,public Base2 {
+
+};
+
+void test57() {
+    cout << sizeof(son) << endl;  
+    son s;
+    // s.age;  //二义性问题
+    s.Base1::age;  //这样访问
+    s.Base2::age;
+}
+/*菱形继承
+比如animal
+    sheep 继承 animal
+    camel 继承 animal 
+    alpaca 继承 sheep,camel
+    此时，羊驼同时继承了sheep和camel从animal继承来的属性和方法，相当于继承了两份，实际只需要一份，造成空间浪费
+    并且，当访问同一个属性或者函数时，会出现二义性
+*/
+class Animal2 {
+    public :
+        int age;
+        void func() {
+            cout << "func()" << endl;
+        }
+};
+//虚基类（virtual）
+class Sheep : virtual public Animal2 {
+    public:
+        int sheep;
+        void fSheep() {
+            cout << "fSheep()" << endl;
+        }
+};
+class Camel : virtual public Animal2 {
+public:
+        int camel;
+        void fSheep() {
+            cout << "fCamel()" << endl;
+        }
+};
+class Alpace : public Sheep,public Camel {
+
+};
+void test58() {
+    Alpace alpace;
+    // alpace.age;  //二义性，不能这样访问
+    // alpace.func(); //二义性
+
+    // alpace.Sheep::age;
+    // alpace.Camel::age;
+    // alpace.Sheep::func();
+    //如何解决菱形继承呢，使用虚继承
+    /**
+     *vbptr 虚基类指针
+     指向一张表，虚基类表
+     通过表找到偏移量
+
+     * */
+    alpace.age;  //此时，就可以访问了
+    //内部工作原理
+    cout << endl;
+}
+
+/*多态
+静态多态（重载）
+动态多态
+*/
+//动物类
+class An3 {
+    public:
+        virtual void speak() {
+            cout << "an3 speak() " << endl;
+        }
+       virtual void s2() {
+            cout << "an3 s2()" << endl;
+        }
+};
+class Cat1 : public An3 {
+    public:
+        void speak() {
+            cout << "Cat1 speak()" << endl;
+        }
+        virtual void s2() {
+            cout << "cat1 s2()" << endl;
+        }
+};
+void speak(An3 & an3) {
+    an3.speak();
+}
+void test59() {
+    Cat1 cat;
+    speak(cat);  //早绑定，编译时就绑定好函数地址了
+    //希望是cat在speak，就要使用虚函数
+    /*
+     *父类的引用或者指针，指向了子类对象 
+     */
+
+    //原理剖析
+    cout << sizeof(An3) << endl;  //空的就是1，函数不是虚函数，当是虚函数的时候，就是8（保存的有一个指针）
+
+    //发生多态，父类指针指向子类对象
+    An3* an = new Cat1();
+    /*
+    an是对象的地址，对于当前这个对象，实际只有一个属性，就是一个vfptr(虚函数指针)，8个字节
+    对an做一个强转，(int *)an  通过 *(int *)an  此时访问的就是这个vfptr的值，这里存放的值实际上是虚函数表的地址
+    再 转一次指针，取值，获取到的就是要调用的虚函数
+    虚函数指针：void(*)()
+    */
+    ((void(*)())*(int *)*(int *)an)();
+    //想调用s2
+    int * p = (int *)*(int *)an;
+    ((void(*)()))(*(p+1))();
+
+
+}
+//visual stido 提供提供的 命令 cl /d1 reportSingleClassLayoutAn3 test1.cpp 主要：直接查看可能会有问题，查看test1.cpp中的内容
+
+
 //函数入口地址
 int main() {
     // test1();
@@ -1333,8 +1517,17 @@ int main() {
 
     // test45();
 
-    test46();
+    // test46();
 
+    // test55();
+
+    // test56();
+
+    // test57();
+
+    // test58();
+
+    test59();
     return 0;
 }
 
