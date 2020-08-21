@@ -165,7 +165,7 @@ public class TankFrame extends Frame {
        }
 
        for (int i = 0 ; i < bullets.size() ; i++) {
-           bullets.get(i).collectWidth();
+//           bullets.get(i).collectWidth();
        }
 
     }

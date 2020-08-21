@@ -34,7 +34,10 @@
             ],
             "options": {
                 "cwd": "E:\\bw\\mingw64\\bin"
-            }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

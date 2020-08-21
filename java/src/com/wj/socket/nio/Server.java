@@ -9,6 +9,52 @@ import java.util.Set;
 
 /**
  * NIO
+ *
+ * C的select写法：
+ * struct sockaddr_in serv;
+ * serv.sin_port = htons(8888);
+ * serv.sin_addr.s_addr = inet_addr("127.0.0.1");
+ * serv.sin_family = AF_INET;
+ * int sfd = socket(AF_INET,SOCK_STREAM,0);
+ * bind(sfd,&serv,sizeof(serv));  //绑定端口
+ * listen(sfd,128);  //监听
+ * fd_set reads,temp;
+ * FD_ZERO(reads);
+ * FD_SET(sfd,reads);
+ * int max = sfd;
+ * while (1) {
+ *     temp = reads;
+ *     int ret = select(max + 1,&temp,NULL,NULL,NULL);
+ *     //等待内核返回
+ *     if (FD_ISSET(sfd,&temp)) {
+ *         //代表新连接
+ *         struct sockaddr_in client;
+ *         int len = sizeof(client);
+ *         int cfd = accept(sfd,&client,&len);
+ *         FD_SET(cfd,reads);
+ *         max = max < cfd ? cfd : max;
+ *     }
+ *     //接收已经连接的发送数据
+ *     for (int i = sfd + 1; i < max + 1; i++){
+ *         if (FD_ISSET(i,&temp)) {
+ *             char buf[1024] = {0};
+ *             int ret = recv(i,buf,sizeof(buf),0);
+ *             if (ret > 0) {
+ *                 //代表有数据
+ *             } else if (ret == 0) {
+ *                 //断开连接
+ *                 close(i);
+ *                 FD_CLR(i,&reads);
+ *             }
+ *         }
+ *     }
+ * }
+ *
+ *
+ *
+ *
+ *
+ *
  */
 public class Server {
 
