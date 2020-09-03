@@ -1337,6 +1337,9 @@ struct task_struct * __cpuinit fork_idle(int cpu)
  *
  * It copies the process, and if successful kick-starts
  * it and waits for it to finish using the VM if required.
+ * 标志集合
+ * 用户状态下栈的起始地址
+ * 指向寄存器集合的指针
  */
 long do_fork(unsigned long clone_flags,
 	      unsigned long stack_start,

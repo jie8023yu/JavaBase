@@ -442,6 +442,10 @@ int sys_clone(struct pt_regs *regs)
 	child_tidptr = (int __user *)regs->di;
 	if (!newsp)
 		newsp = regs->sp;
+	/*
+	标志不再是硬编码，是通过各个寄存器传递到系统调用。也不再复制父进程的栈，而是可以指定新的地址（newsp）
+	
+	*/
 	return do_fork(clone_flags, newsp, regs, 0, parent_tidptr, child_tidptr);
 }
 

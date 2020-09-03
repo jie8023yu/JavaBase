@@ -1181,7 +1181,7 @@ struct task_struct {
 	unsigned did_exec:1;
 	unsigned in_execve:1;	/* Tell the LSMs that the process is doing an
 				 * execve */
-	pid_t pid;   //pid，这是一个int，在x86下，这个值就是
+	pid_t pid;   //pid，这是一个int，在x86下，这个值就是2个字节，16位，最大值就是65535，可以表示0-65535
 	pid_t tgid;
 
 	/* Canary value for the -fstack-protector gcc feature */
@@ -2402,4 +2402,8 @@ static inline void mm_init_owner(struct mm_struct *mm, struct task_struct *p)
 }
 #endif /* CONFIG_MM_OWNER */
 
-#define TASK_STATE
+#define TASK_STATE_TO_CHAR_STR "RSDTtZX"
+
+#endif /* __KERNEL__ */
+
+#endif
